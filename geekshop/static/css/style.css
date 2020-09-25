@@ -452,6 +452,7 @@ table {
 
 .gallery-list {
     display: inline-block;
+    padding-bottom: 30px;
 }
 
 .gallery-game {
@@ -1221,7 +1222,7 @@ table {
 
 .block {
     float: left;
-    width: 960px;
+    width: 950px;
     height: 562px;
     position: relative;
 }
@@ -1292,6 +1293,64 @@ table {
     position: absolute;
     margin-left: 115px;
     margin-top: 152px;
+}
+
+.container-product {
+    padding-top: 175px;
+    text-align: center;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 175px;
+    
+}
+.img-product{
+    display: inline-block;
+}
+.text-product {
+    
+    display: inline-block;
+    width: 463px;
+    height: 257px;
+    
+}
+
+
+.product-game {
+    color: black;
+    font-family: "Poppins-Medium";
+    font-size: 30px;
+    font-weight: 400;
+ 
+}
+.all-txt{
+    padding-left: 65px;
+    padding-right: 65px;
+}
+.red {
+    color: red;
+}
+.price{
+    font-size: 40px;
+    font-weight: 200;
+}
+.product-buy {
+    width: 471px;
+}
+.txt-prod {
+    padding: 15px;
+    font-size: 12px;
+    font-family: "RobotoCondensed-Light";
+}
+.img-prod{
+    margin-bottom: 55px;
+    margin-right: 25px;
+}
+
+.similar-games{
+    text-align: center;
+    background-color: #E4E4E4;
+    height: 685px;
 }
 
 @media screen and (max-width: 1480px) {
@@ -1374,3 +1433,4 @@ table {
     .logo {
         padding-left: 240px;
     }
+    
