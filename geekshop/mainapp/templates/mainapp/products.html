@@ -23,82 +23,51 @@
                 <li><a href="{% url 'main' %}" class="menu-link catalog-text">Home</a></li>
                 <li><a href="#" class="menu-link catalog-text">About</a></li>
                 <li><a href="#" class="menu-link catalog-text">Services</a></li>
-                <li><a href="{% url 'products' %}" class="menu-link catalog-text activ-catalog">Gallery</a></li>
+                <li><a href="{% url 'products:index' %}" class="menu-link catalog-text activ-catalog">Gallery</a></li>
                 <li><a href="#" class="menu-link catalog-text">News</a></li>
                 <li><a href="#" class="menu-link catalog-text">Team</a></li>
                 <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>
             </ul>
         </div>
+        <div class="menu catalog-menu">
+            <ul class="menu-list">
+                {% for category in categories %}
+                    <li><a href="{% url 'products:category' category.pk %}" class="menu-link catalog-text {% if request.resolver_match.pk == category.pk %}
+                                                                                                activ-catalog
+                                                                                           {% endif %} ">{{ category.name}}</a></li>
+                {% endfor %}
+
+            </ul>
+        </div>
         <div class="gallery gallery-catalog">
             <h2 class="gallery-h2 gallery-catalog-h2">Our Gallery</h2>
+
             <div class="gallery-list gallery-list-catalog">
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/assassing.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">ASSASIN’S CREED: Rogue</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
+                                {% for game in games%}
+                    <div class="gallery-game">
+                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                            <h2 class="gallery-h2-game">{{game.name}}</h2>
+                            <button type="button" class="buy-button">
+                                <p class="buy-buy">Buy</p>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/raider.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">TOMB RAIDER</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/ryse.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">RYSE: Son Of Rome</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/warcraft2.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">WORLD OF WARCRAFT: Wrath Of The Linch King</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+
             <div class="gallery-list gallery-list-catalog">
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/assassing.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">ASSASIN’S CREED: Rogue</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
+                               {% for game in games%}
+                    <div class="gallery-game">
+                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                            <h2 class="gallery-h2-game">{{game.name}}</h2>
+                            <button type="button" class="buy-button">
+                                <p class="buy-buy">Buy</p>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/raider.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">TOMB RAIDER</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/ryse.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">RYSE: Son Of Rome</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/warcraft2.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">WORLD OF WARCRAFT: Wrath Of The Linch King</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+
             <a href="" class="catalog-a">
                 <div class="new-game">
                     <p class="catalog-p">Show more games &gt;</p>

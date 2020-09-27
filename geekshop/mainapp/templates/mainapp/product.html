@@ -1,53 +1,42 @@
-<!DOCTYPE html>
 
 
+{% extends 'mainapp/base.html' %}
 {% load static %}
 
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Продукт</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet"> </head>
-
-<body>
+{% block content %}
     <div class="container-catalog">
         <div class="header">
-            <div class="header-list">
-                <div class="logo">
-                    <h2 class="logo-h2">Historical</h2>
-                    <p class="logo-p">GAMES</p>
-                </div>
-                <div class="telefon"> <img src="{% static 'img/telefon.png' %}" alt="" class="logo-telefon">
-                    <p class="number">+123 456 7890</p>
-                </div>
-                <div class="email-list"> <img src="{% static 'img/email.png' %}" alt="" class="logo-telefon">
-                    <p class="email">info@example.com</p>
-                </div>
-                <div class="find">
-                    <table>
-                        <tr>
-                            <td class="inputsab">
-                                <input type="sabmit" value="Search" class="find-sabmit"> </td>
-                            <td class="search">
-                                <a href="#"><img src="{% static 'img/find.png' %}" alt=""></a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+        {% include 'mainapp/includes/inc_header_list.html' %}
         </div>
         <div class="menu catalog-menu">
             <ul class="menu-list">
                 <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">Home</a></li>
                 <li><a href="#" class="menu-link catalog-text">About</a></li>
                 <li><a href="#" class="menu-link catalog-text">Services</a></li>
-                <li><a href="{% url 'products' %}" class="menu-link catalog-text">Gallery</a></li>
+                <li><a href="{% url 'products:index' %}" class="menu-link catalog-text">Gallery</a></li>
                 <li><a href="#" class="menu-link catalog-text">News</a></li>
                 <li><a href="#" class="menu-link catalog-text">Team</a></li>
                 <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="menu catalog-menu">
+            <ul class="menu-list">
+
+                {% for category in games%}
+                    <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">{{cat}}</a></li>
+
+
+                {% endfor %}
+
+<!--                <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">Home</a></li>-->
+<!--                <li><a href="#" class="menu-link catalog-text">About</a></li>-->
+<!--                <li><a href="#" class="menu-link catalog-text">Services</a></li>-->
+<!--                <li><a href="{% url 'products' %}" class="menu-link catalog-text">Gallery</a></li>-->
+<!--                <li><a href="#" class="menu-link catalog-text">News</a></li>-->
+<!--                <li><a href="#" class="menu-link catalog-text">Team</a></li>-->
+<!--                <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>-->
             </ul>
         </div>
         <div class="container-product">
@@ -103,10 +92,6 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <p class="footer-p">&copy; {% now 'Y' %} Историческе Игры. Все права защищены</p>
-        </div>
     </div>
-</body>
+{% endblock %}
 
-</html>
