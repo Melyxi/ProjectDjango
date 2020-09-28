@@ -102,38 +102,17 @@
         <div class="gallery">
             <h2 class="gallery-h2">Our Gallery</h2>
             <div class="gallery-list">
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/assassing.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">ASSASIN’S CREED: Rogue</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
+                {% for game in games%}
+                    <div class="gallery-game">
+                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                            <h2 class="gallery-h2-game">{{game.name}}</h2>
+                            <button type="button" class="buy-button">
+                                <p class="buy-buy">Buy</p>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><a href="{% url 'product' %}"><img src="{% static 'img/raider.jpg' %}" alt=""></a>
-                        <h2 class="gallery-h2-game">TOMB RAIDER</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/ryse.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">RYSE: Son Of Rome</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/warcraft2.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">WORLD OF WARCRAFT: Wrath Of The Linch King</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
         <div class="testimonial">
