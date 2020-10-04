@@ -9,17 +9,14 @@
 }
 
 body {
-    /*
     width:1920px;
     margin: 0 auto;
-*/
 }
 
 .fon {
     height: 712px;
     width: 1920px;
     background-image: url(/static/img/fon1.png);
-    padding-top: 13px;
     margin: 0 auto;
 }
 
@@ -40,6 +37,7 @@ body {
     text-align: center;
     padding-top: 32px;
 }
+
 
 .menu-link {
     font-family: "Roboto Condensed";
@@ -71,6 +69,25 @@ body {
     display: inline-block;
 }
 
+.list_log {
+    display: flex;
+    padding-left:150px;
+    list-style-type: none;
+}
+.login_logout {
+    /* Style for "Historical" */
+    text-align: left;
+    color: #ffffff;
+    font-family: Poppins;
+    font-size: 26px;
+    font-weight: 500;
+    /* Text style for "Historical" */
+    padding-left:10px;
+
+}
+.nickname {
+ text-decoration: none;
+}
 .logo,
 .telefon,
 .email-list,
@@ -105,19 +122,19 @@ body {
 }
 
 .twitter {
-    background-image: url(/static/img/twitter.png);
+    background-image: url(../img/twitter.png);
 }
 
 .facebook {
-    background-image: url(/static/img/facebook.png);
+    background-image: url(../img/facebook.png);
 }
 
 .rss {
-    background-image: url(/static/img/rss-feed.png);
+    background-image: url(../img/rss-feed.png);
 }
 
 .vk {
-    background-image: url(/static/img/vk.png);
+    background-image: url(../img/vk.png);
 }
 
 .header-list {
@@ -321,13 +338,13 @@ table {
 }
 
 .vetka {
-    background-image: url(/static/img/vetka.png);
+    background-image: url(../img/vetka.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .arrow {
-    background-image: url(/static/img/arrow.png);
+    background-image: url(../img/arrow.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -410,25 +427,25 @@ table {
 }
 
 .dolar {
-    background-image: url(/static/img/dolar.png);
+    background-image: url(../img/dolar.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .home {
-    background-image: url(/static/img/home.png);
+    background-image: url(../img/home.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .settings {
-    background-image: url(/static/img/settings.png);
+    background-image: url(../img/settings.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .poll {
-    background-image: url(/static/img/poll.png);
+    background-image: url(../img/poll.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -529,7 +546,7 @@ table {
 
 .testimonial {
     height: 537px;
-    background-image: url(/static/img/testimonial.png);
+    background-image: url(../img/testimonial.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -552,7 +569,7 @@ table {
     width: 37px;
     height: 37px;
     border: 1px solid #ffffff;
-    background-image: url(/static/img/left.png);
+    background-image: url(../img/left.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -561,7 +578,7 @@ table {
     width: 37px;
     height: 37px;
     border: 1px solid #ffffff;
-    background-image: url(/static/img/right.png);
+    background-image: url(../img/right.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -881,7 +898,7 @@ table {
 }
 
 .person-fb {
-    background-image: url(/static/img/facebook-person.png);
+    background-image: url(../img/facebook-person.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -891,19 +908,19 @@ table {
 }
 
 .person-tw {
-    background-image: url(/static/img/twitter-person.png);
+    background-image: url(../img/twitter-person.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .person-rss {
-    background-image: url(/static/img/rss-person.png);
+    background-image: url(../img/rss-person.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .person-vk {
-    background-image: url(/static/img/vk-person.png);
+    background-image: url(../img/vk-person.png);
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -944,7 +961,7 @@ table {
 .subscribe {
     width: 1920px;
     height: 313px;
-    background-image: url(/static/img/subs.png);
+    background-image: url(../img/subs.png);
     text-align: center;
     margin: 0 auto;
 }
@@ -1086,7 +1103,7 @@ table {
     font-family: "Roboto Condensed";
     font-size: 14px;
     font-weight: 300;
-    /* Text style for "mail@examp" */
+     Text style for "mail@examp"
     color: red;
 }
 
@@ -1174,11 +1191,12 @@ table {
 }
 
 .gallery-catalog {
+    width: 1923px;
     height: 100%;
 }
 
 .gallery-catalog-h2 {
-    padding-top: 174px;
+    padding-top: 30px;
     padding-bottom: 3px;
 }
 
@@ -1222,17 +1240,17 @@ table {
 
 .block {
     float: left;
-    width: 950px;
+    width: 960px;
     height: 562px;
     position: relative;
 }
 
 .one-one {
-    background-image: url(/static/img/532219.jpg);
+    background-image: url(../img/532219.jpg);
 }
 
 .two-two {
-    background-image: url(/static/img/cda8d63e371e3da4b332164c3da4ada5.jpg);
+    background-image: url(../img/cda8d63e371e3da4b332164c3da4ada5.jpg);
 }
 
 .discont,
@@ -1270,6 +1288,10 @@ table {
     /* Text style for "$28.90" */
     text-decoration: line-through;
 }
+.active_category{
+    border-bottom: 2px solid black;
+    color: black;
+}
 
 .discont-buy {
     width: 265px;
@@ -1302,17 +1324,17 @@ table {
     height: 100%;
     width: 100%;
     padding-bottom: 175px;
-    
+
 }
 .img-product{
     display: inline-block;
 }
 .text-product {
-    
+
     display: inline-block;
     width: 463px;
     height: 257px;
-    
+
 }
 
 
@@ -1321,7 +1343,7 @@ table {
     font-family: "Poppins-Medium";
     font-size: 30px;
     font-weight: 400;
- 
+
 }
 .all-txt{
     padding-left: 65px;
@@ -1413,7 +1435,7 @@ table {
         margin: auto;
         margin-top: 30px;
         margin-bottom: 30px;
-        
+
     }
     .block {
         float: none;
@@ -1425,8 +1447,8 @@ table {
     .gallery-list-catalog .gallery-game:first-child {
         display: none;
     }
-    
-    
+
+
     .footer {
         width: 100%;
     }

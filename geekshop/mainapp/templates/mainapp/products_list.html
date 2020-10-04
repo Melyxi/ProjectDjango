@@ -1,0 +1,48 @@
+
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <title>{{title|capfirst}}</title>
+{% endblock %}
+
+
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Каталог</title>-->
+<!--    <link rel="stylesheet" href="{% static 'css/style.css' %}">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet"> </head>-->
+
+{% block content %}
+    <div class="container-catalog">
+        <div class="header catalog-header">
+            {% include 'mainapp/includes/inc_header_list.html' %}
+        </div>
+        </div>
+        <div class="menu catalog-menu">
+            {% include 'mainapp/includes/inc_menu_catalogs.html' %}
+        </div>
+        <div class="menu catalog-menu">
+                {% include 'mainapp/includes/inc_menu_gallery.html'%}
+        </div>
+        <div class="gallery gallery-catalog">
+            <h2 class="gallery-h2 gallery-catalog-h2">{{pk_category}}</h2>
+
+            <div class="gallery-list gallery-list-catalog">
+                {% for game in games%}
+                    <div class="gallery-game">
+                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                            <h2 class="gallery-h2-game">{{game.name}}</h2>
+                            <button type="button" class="buy-button">
+                                <p class="buy-buy">Buy</p>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+{% endblock %}
+

@@ -1,3 +1,5 @@
+
+
 <div class="header-list">
     <a href="{% url 'main' %}"><div class="logo">
         <h2 class="logo-h2">Historical</h2>
@@ -20,4 +22,23 @@
             </tr>
         </table>
     </div>
+    <div class="list_log">
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'auth:edit' %}" class="login_logout nickname">
+                {{ user.username|default:'Пользователь' }}
+            </a>
+        </li>
+        {% endif%}
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'auth:logout' %}" class="login_logout">Logout</a>
+        {% else %}
+          <a href="{% url 'auth:login' %}" class="login_logout">Login</a>
+        {% endif %}
+        </li>
+    </div>
+
+
+
 </div>

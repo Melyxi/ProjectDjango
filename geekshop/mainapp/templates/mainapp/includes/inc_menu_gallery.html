@@ -1,0 +1,21 @@
+<ul class="menu-list">
+
+    <li class="menu-link catalog-text">
+            <a href="{% url 'products:category' 0 %}"
+       class=" menu-link catalog-text  {% if request.resolver_match.kwargs.pk == 0 %}
+                active_category
+              {% endif %}">
+      все
+    </a>
+
+    </li>
+
+
+
+    {% for category in categories %}
+        <li><a href="{% url 'products:category' category.pk %}"class=" menu-link catalog-text  {% if request.resolver_match.kwargs.pk == category.pk %}
+                active_category
+              {% endif %}">{{ category.name}}</a></li>
+    {% endfor %}
+
+</ul>

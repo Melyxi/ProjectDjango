@@ -2,21 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c15f98fd-d979-4ecf-b8cc-27c479f3d74f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mainapp/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authapp/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu_catalogs.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu_gallery.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/products_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainapp/migrations/0002_auto_20200926_1909.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_header_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_header_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/product.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +35,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -35,7 +44,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1hk2ls4JQJgDAJALJUBnbOTRwJF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -45,7 +56,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -73,25 +84,47 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="803" y="436" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601131203410">
+    <state x="803" y="436" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601565463498">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="803" y="436" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601131203410" />
+    <state x="803" y="436" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601565463498" />
     <state x="891" y="557" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1600541631846">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="891" y="557" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600541631846" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1601590586638">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601590586638" />
     <state x="727" y="307" key="FileChooserDialogImpl" timestamp="1601034950042">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="727" y="307" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601034950042" />
+    <state x="752" y="233" key="RollbackChangesDialog" timestamp="1601590383655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="752" y="233" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601590383655" />
     <state x="5" y="155" key="SettingsEditor" timestamp="1601130205683">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="5" y="155" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601130205683" />
-    <state x="655" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1601034837376">
+    <state x="655" y="390" key="com.intellij.ide.util.TipDialog" timestamp="1601837251223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="390" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601034837376" />
+    <state x="655" y="390" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601837251223" />
+    <state x="794" y="360" width="672" height="678" key="search.everywhere.popup" timestamp="1601588440857">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="360" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601588440857" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/authapp/urls.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

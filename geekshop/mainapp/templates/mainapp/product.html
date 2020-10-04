@@ -4,22 +4,16 @@
 {% load static %}
 
 <html lang="en">
-
+{% block title %}
+    <title>{{title|capfirst}}</title>
+{% endblock %}
 {% block content %}
     <div class="container-catalog">
         <div class="header">
-        {% include 'mainapp/includes/inc_header_list.html' %}
+            {% include 'mainapp/includes/inc_header_list.html' %}
         </div>
         <div class="menu catalog-menu">
-            <ul class="menu-list">
-                <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">Home</a></li>
-                <li><a href="#" class="menu-link catalog-text">About</a></li>
-                <li><a href="#" class="menu-link catalog-text">Services</a></li>
-                <li><a href="{% url 'products:index' %}" class="menu-link catalog-text">Gallery</a></li>
-                <li><a href="#" class="menu-link catalog-text">News</a></li>
-                <li><a href="#" class="menu-link catalog-text">Team</a></li>
-                <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>
-            </ul>
+                {% include 'mainapp/includes/inc_menu_catalogs.html' %}
         </div>
         <div class="menu catalog-menu">
             <ul class="menu-list">

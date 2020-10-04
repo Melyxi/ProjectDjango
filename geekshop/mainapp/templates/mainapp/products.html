@@ -3,7 +3,9 @@
 {% load static %}
 
 
-
+{% block title %}
+    <title>{{title|capfirst}}</title>
+{% endblock %}
 
 
 <!--    <meta charset="UTF-8">-->
@@ -19,31 +21,18 @@
         </div>
         </div>
         <div class="menu catalog-menu">
-            <ul class="menu-list">
-                <li><a href="{% url 'main' %}" class="menu-link catalog-text">Home</a></li>
-                <li><a href="#" class="menu-link catalog-text">About</a></li>
-                <li><a href="#" class="menu-link catalog-text">Services</a></li>
-                <li><a href="{% url 'products:index' %}" class="menu-link catalog-text activ-catalog">Gallery</a></li>
-                <li><a href="#" class="menu-link catalog-text">News</a></li>
-                <li><a href="#" class="menu-link catalog-text">Team</a></li>
-                <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>
-            </ul>
+            {% include 'mainapp/includes/inc_menu_catalogs.html' %}
         </div>
         <div class="menu catalog-menu">
-            <ul class="menu-list">
-                {% for category in categories %}
-                    <li><a href="{% url 'products:category' category.pk %}" class="menu-link catalog-text {% if request.resolver_match.pk == category.pk %}
-                                                                                                activ-catalog
-                                                                                           {% endif %} ">{{ category.name}}</a></li>
-                {% endfor %}
 
-            </ul>
+            {% include 'mainapp/includes/inc_menu_gallery.html'%}
+
         </div>
         <div class="gallery gallery-catalog">
             <h2 class="gallery-h2 gallery-catalog-h2">Our Gallery</h2>
 
             <div class="gallery-list gallery-list-catalog">
-                                {% for game in games%}
+                {% for game in games%}
                     <div class="gallery-game">
                         <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
@@ -68,7 +57,7 @@
                 {% endfor %}
             </div>
 
-            <a href="" class="catalog-a">
+            <a href="{% url 'products:category' 0 %}" class="catalog-a">
                 <div class="new-game">
                     <p class="catalog-p">Show more games &gt;</p>
                 </div>
