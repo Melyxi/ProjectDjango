@@ -1,0 +1,13 @@
+{% extends 'basketapp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    {% for bask in basket%}
+        <div>
+            {{bask.product.name }} - {{bask.quantity}} количество
+
+        </div>
+
+    {% endfor %}
+{% endblock %}

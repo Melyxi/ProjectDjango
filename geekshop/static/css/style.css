@@ -71,7 +71,7 @@ body {
 
 .list_log {
     display: flex;
-    padding-left:150px;
+    padding-left:100px;
     list-style-type: none;
 }
 .login_logout {
@@ -497,6 +497,8 @@ table {
 }
 
 .buy-button {
+    text-decoration: none;
+
     width: 130px;
     height: 30px;
     background-color: #f44336;
@@ -514,6 +516,7 @@ table {
 }
 
 .buy-buy {
+    padding-top: 2px;
     color: white;
     color: #ffffff;
     font-family: Poppins;

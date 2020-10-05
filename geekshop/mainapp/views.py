@@ -1,14 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product, ProductCategory
-# Create your views here.
+from basketapp.models import Basket
 
 
 def main(request):
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        count = sum([i.quantity for i in list(basket)])
+
     title = 'главная'
     list_game = Product.objects.all()[:4]
     content = {
         'games': list_game,
-        "title": title
+        "title": title,
+        'basket': count,
     }
     return render(request, 'mainapp/index.html', content)
 
@@ -16,6 +22,11 @@ def main(request):
 def products(request, pk=None):
     title = 'галерея'
     print(pk)
+
+
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        count = sum([i.quantity for i in list(basket)])
 
     list_categories = ProductCategory.objects.all()
 
@@ -32,7 +43,8 @@ def products(request, pk=None):
             'games': list_game,
             'categories': list_categories,
             "title": title,
-            'pk_category': category
+            'pk_category': category,
+            'basket': count,
         }
         return render(request, 'mainapp/products_list.html', content)
 
@@ -40,7 +52,8 @@ def products(request, pk=None):
     content = {
         'games': same_game,
         'categories': list_categories,
-        "title": title
+        "title": title,
+        'basket': count,
     }
 
     return render(request, 'mainapp/products.html', content)

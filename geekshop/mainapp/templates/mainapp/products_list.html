@@ -34,9 +34,9 @@
                     <div class="gallery-game">
                         <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
-                            <button type="button" class="buy-button">
+                            <a href="{% url 'basket:add' game.pk %}" class="buy-button">
                                 <p class="buy-buy">Buy</p>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 {% endfor %}

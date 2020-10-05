@@ -2,28 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c15f98fd-d979-4ecf-b8cc-27c479f3d74f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/authapp/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authapp/templates/authapp/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authapp/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu_catalogs.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_menu_gallery.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/products_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/basketapp/templates/basketapp/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/basketapp/templates/basketapp/basket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/basketapp/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/shop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/shopping.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/migrations/0002_auto_20200926_1909.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_header_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/includes/inc_header_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/product.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/templates/mainapp/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/templates/mainapp/products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
     </list>
@@ -56,18 +45,19 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\static\css" />
-      <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\mainapp\templates\mainapp" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\static\css" />
       <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\static" />
       <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\static\img" />
+      <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\static\css" />
+      <recent name="E:\Desktop\Geekbrains\ProjectDjango\geekshop\mainapp\templates\mainapp" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -116,15 +106,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="360" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601588440857" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/authapp/urls.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
