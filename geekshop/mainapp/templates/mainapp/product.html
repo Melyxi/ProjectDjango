@@ -3,7 +3,7 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-<html lang="en">
+
 {% block title %}
     <title>{{title|capfirst}}</title>
 {% endblock %}
@@ -15,77 +15,62 @@
         <div class="menu catalog-menu">
                 {% include 'mainapp/includes/inc_menu_catalogs.html' %}
         </div>
-        <div class="menu catalog-menu">
-            <ul class="menu-list">
 
-                {% for category in games%}
-                    <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">{{cat}}</a></li>
-
-
-                {% endfor %}
-
-<!--                <li><a href="{% url 'main' %}" class="menu-link catalog-text activ-catalog">Home</a></li>-->
-<!--                <li><a href="#" class="menu-link catalog-text">About</a></li>-->
-<!--                <li><a href="#" class="menu-link catalog-text">Services</a></li>-->
-<!--                <li><a href="{% url 'products' %}" class="menu-link catalog-text">Gallery</a></li>-->
-<!--                <li><a href="#" class="menu-link catalog-text">News</a></li>-->
-<!--                <li><a href="#" class="menu-link catalog-text">Team</a></li>-->
-<!--                <li><a href="#" class="menu-link catalog-text">Contact Us</a></li>-->
-            </ul>
-        </div>
         <div class="container-product">
-           
+
             <div class="img-product">
-                <img class="img-prod" src="{% static 'img/assassing-prod.png' %}" alt="">
+                <img class="img-prod" src="/media/{{ img_gallery.0.image_product }}" alt="">
             </div>
             <div class="text-product">
-                <p class="product-game all-txt">Assasin’s Creed:<span class="product-game red"> <br>Rogue</span><span class="product-game price"><br>$29.99</span></p>
-                <button type="button" class="discont-buy product-buy">
-                        <p class="buy-buy buy-dis">Buy</p>
-                </button>
-                <h2 class="txt-prod">The plot is set in a fictional history of real world events and follows the centuries-old struggle between the Assassins, who fight for peace with free will, and the Templars, who desire peace through control. The story is set in the mid-18th century during the Seven Years' War, and follows Shay Patrick Cormac, an Assassin-turned-Templar who hunts down former members of his Brotherhood after being betrayed by them. Gameplay in Rogue is very similar to that of Black Flag with a mixture of ship-based naval exploration and third-person land-based exploration with some new features.</h2>
+                <p class="product-game all-txt">{{product.name}}<span class="product-game price"><br>${{product.price}}</span></p>
+
+                <h2 class="txt-prod">The plot is set in a fictional history of real world
+                    events and follows the centuries-old struggle between the Assassins,
+                    who fight for peace with free will, and the Templars, who desire peace
+                    through control. The story is set in the mid-18th century during the Seven
+                    Years' War, and follows Shay Patrick Cormac, an Assassin-turned-Templar who
+                    hunts down former members of his Brotherhood after being betrayed by them
+                    . Gameplay in Rogue is very similar to that of Black Flag with a mixture
+                    of ship-based naval exploration and third-person land-based exploration
+                    with some new features.</h2>
+
+                <a href="{% url 'basket:add' product.pk %}" >
+                    <button type="button" class="product-buy">
+                                <p class="buy-buy buy-dis-p">Buy</p>
+                    </button>
+                </a>
+
             </div>
-            
+
         </div>
+        {% if same_product %}
         <div class="similar-games">
+           
+
+
             <h class="similar-txt">
-                
+
             </h>
+
                         <div class="gallery-list gallery-list-catalog">
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/assassing.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">ASSASIN’S CREED: Rogue</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
+
+            {% for game in same_product%}
+                    <div class="gallery-game">
+                        <div class="img-gallery-game">
+
+                            <a href="{% url 'products:product' game.pk %}">
+                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                            </a>
+                            <h2 class="gallery-h2-game">{{game.name}}</h2>
+                            <a href="{% url 'basket:add' game.pk %}" class="buy-button">
+                                <p class="buy-buy">Buy</p>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/raider.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">TOMB RAIDER</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/ryse.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">RYSE: Son Of Rome</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
-                <div class="gallery-game">
-                    <div class="img-gallery-game"><img src="{% static 'img/warcraft2.jpg' %}" alt="">
-                        <h2 class="gallery-h2-game">WORLD OF WARCRAFT: Wrath Of The Linch King</h2>
-                        <button type="button" class="buy-button">
-                            <p class="buy-buy">Buy</p>
-                        </button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}
 

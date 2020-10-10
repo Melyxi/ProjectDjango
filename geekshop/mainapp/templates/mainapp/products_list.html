@@ -32,7 +32,11 @@
             <div class="gallery-list gallery-list-catalog">
                 {% for game in games%}
                     <div class="gallery-game">
-                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                        <div class="img-gallery-game">
+
+                            <a href="{% url 'products:product' game.pk %}">
+                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                            </a>
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
                             <a href="{% url 'basket:add' game.pk %}" class="buy-button">
                                 <p class="buy-buy">Buy</p>

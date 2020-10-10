@@ -21,3 +21,8 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} ({self.category.name})"
 
+
+class Gallery(models.Model):
+    name_gallery = models.ForeignKey(Product, on_delete=models.CASCADE)
+    hot_image =  models.ImageField(upload_to="hot_images", blank=True)
+    image_product = models.ImageField(upload_to="image_product", blank=True)

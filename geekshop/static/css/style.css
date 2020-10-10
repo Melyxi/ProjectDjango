@@ -525,6 +525,7 @@ table {
     line-height: 24px;
     /* Text style for "B, uy" */
     letter-spacing: 0.14px;
+    text-decoration: none;
 }
 
 .gallery-h2 {
@@ -1242,10 +1243,10 @@ table {
 }
 
 .block {
+    position: relative;
     float: left;
     width: 960px;
     height: 562px;
-    position: relative;
 }
 
 .one-one {
@@ -1259,6 +1260,7 @@ table {
 .discont,
 .discont-name {
     color: black;
+    width: 400px;
 }
 
 .discont {
@@ -1284,7 +1286,10 @@ table {
     font-family: Poppins;
     font-weight: 300;
 }
-
+.img_game_gallery {
+    width: 271px;
+    height: 376px;
+}
 .discont-price-old {
     color: #8c8c8c;
     font-size: 36px;
@@ -1297,6 +1302,8 @@ table {
 }
 
 .discont-buy {
+    position: absolute;
+text-decoration: none;
     width: 265px;
     height: 62px;
     border: 1px solid #000000;
@@ -1306,6 +1313,10 @@ table {
 }
 
 .buy-dis {
+    padding-top: 10px;
+
+    text-decoration: none;
+    text-align: center;
     font-size: 30px;
     padding-bottom: 13px;
 }
@@ -1316,8 +1327,14 @@ table {
 
 .content-block {
     position: absolute;
-    margin-left: 115px;
-    margin-top: 152px;
+    margin-top: 60px;
+    margin-left: 60px;
+}
+
+.hot_product {
+    position: absolute;
+    width: 960px;
+    height: 562px;
 }
 
 .container-product {
@@ -1360,7 +1377,21 @@ table {
     font-weight: 200;
 }
 .product-buy {
-    width: 471px;
+
+    text-decoration: none;
+    width: 265px;
+    height: 62px;
+    border: 1px solid #000000;
+    background-color: red;
+    cursor: pointer;
+    padding-top: 13px;
+
+}
+.buy-dis-p {
+    text-decoration: none;
+    text-align: center;
+    font-size: 30px;
+    padding-bottom: 13px;
 }
 .txt-prod {
     padding: 15px;
@@ -1368,6 +1399,8 @@ table {
     font-family: "RobotoCondensed-Light";
 }
 .img-prod{
+    width: 471px;
+    height: 257px;
     margin-bottom: 55px;
     margin-right: 25px;
 }

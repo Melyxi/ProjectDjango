@@ -1,20 +1,48 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product, ProductCategory
+from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
+import random
+
+
+def basket_item(request):
+
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        return basket
+    else:
+        return []
+
+
+def get_hot_product():
+    products = Product.objects.all()
+
+    return random.sample(list(products), 2)[:2]
+
+
+def get_same_products(hot_product):
+    same_products = Product.objects.filter(category=hot_product.category). \
+                        exclude(pk=hot_product.pk)[:3]
+
+    return same_products
+
+def hot_gallery(hot_game):
+    hot_gallery = []
+    for i in hot_game:
+        print(i.name)
+        image = Gallery.objects.filter(name_gallery=i.pk)
+        print(hot_gallery.append(list(image)))
+    return hot_gallery
 
 
 def main(request):
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        count = sum([i.quantity for i in list(basket)])
+    basket = basket_item(request)
 
     title = 'главная'
     list_game = Product.objects.all()[:4]
     content = {
         'games': list_game,
         "title": title,
-        'basket': count,
+        'basket': basket,
     }
     return render(request, 'mainapp/index.html', content)
 
@@ -22,13 +50,12 @@ def main(request):
 def products(request, pk=None):
     title = 'галерея'
     print(pk)
-
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        count = sum([i.quantity for i in list(basket)])
-
+    basket = basket_item(request)
     list_categories = ProductCategory.objects.all()
+    print(list_categories[0])
+    hot_game = get_hot_product()
+    hot_image = hot_gallery(hot_game)
+
 
     if pk is not None:
         if pk == 0:
@@ -44,30 +71,37 @@ def products(request, pk=None):
             'categories': list_categories,
             "title": title,
             'pk_category': category,
-            'basket': count,
+            'basket': basket,
         }
         return render(request, 'mainapp/products_list.html', content)
 
     same_game = Product.objects.all()[1:4]
+
     content = {
         'games': same_game,
         'categories': list_categories,
         "title": title,
-        'basket': count,
+        'basket': basket,
+        'hot_image': hot_image,
+
     }
 
     return render(request, 'mainapp/products.html', content)
 
 
-def product(request):
-    title = 'продукт'
-    list_game = Product.objects.all()
-
-    print(list_game)
+def product(request, pk):
+    prod = Product.objects.filter(pk=pk).first()
+    same_product = get_same_products(prod)
+    print(same_product)
+    title = 'продукты'
+    img_gallery = Gallery.objects.filter(name_gallery=pk)
+    # print(img_gallery[0].name_gallery, 'fdsfdsafa')
     content = {
-        'games': list_game,
-        "title": title
-
+        'title': title,
+        'links_menu': ProductCategory.objects.all(),
+        'product': get_object_or_404(Product, pk=pk),
+        'basket': basket_item(request),
+        'img_gallery': img_gallery,
+        'same_product': same_product
     }
-
     return render(request, 'mainapp/product.html', content)

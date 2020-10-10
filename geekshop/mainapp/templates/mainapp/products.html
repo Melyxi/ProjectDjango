@@ -35,7 +35,11 @@
             <div class="gallery-list gallery-list-catalog">
                 {% for game in games%}
                     <div class="gallery-game">
-                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                        <div class="img-gallery-game">
+
+                            <a href="{% url 'products:product' game.pk %}">
+                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                            </a>
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
                             <a href="{% url 'basket:add' game.pk %}" class="buy-button">
                                 <p class="buy-buy">Buy</p>
@@ -51,28 +55,28 @@
                 </div>
             </a>
         </div>
+
         <div class="list-block">
-            <div class="block one-one">
-                <div class="content-block">
-                    <p class="discont">discount</p>
-                    <p class="discont-name">CALL OF DUTY:
-                        <br> Modern Warfare 3</p>
-                    <p class="discont-price">$14.44 <span class="discont-price-old">/ $28.90</span></p>
-                    <button type="button" class="discont-buy">
-                        <p class="buy-buy buy-dis">Buy</p>
-                    </button>
+
+            {% for hot in hot_image%}
+                <div class="block">
+                    <a href="{% url 'products:product' hot.0.name_gallery.pk %}">
+                    <img src="/media/{{ hot.0.hot_image }}" alt="" class="hot_product">
+                    </a>
+                    <div class="content-block">
+                        <p class="discont">discount</p>
+                        <p class="discont-name">
+                            {{hot.0.name_gallery.name}}
+                        </p>
+                        <p class="discont-price">${{hot.0.name_gallery.price}} </p>
+                            <a href="{% url 'basket:add' hot.0.name_gallery.pk %}" class="discont-buy">
+                                <p class="buy-buy buy-dis">Buy</p>
+                            </a>
+                    </div>
                 </div>
-            </div>
-            <div class="block two-two">
-                <div class="content-block">
-                    <p class="discont">discount</p>
-                    <p class="discont-name">MEDAL OF HONOR</p>
-                    <p class="discont-price">$15.96<span class="discont-price-old">/ $29.99</span></p>
-                    <button type="button" class="discont-buy">
-                        <p class="buy-buy buy-dis">Buy</p>
-                    </button>
-                </div>
-            </div>
+            {% endfor %}
+
+
         </div>
     </div>
 {% endblock %}

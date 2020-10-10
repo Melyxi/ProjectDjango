@@ -27,11 +27,21 @@
 
             <li>
                 <a href="{% url 'basket:view' %}" class="login_logout nickname">
-                    {% if basket %} {{ basket }} {% endif %}
-                <img src="{% static 'img/shop.png' %}" alt="">
+                    {% if basket %}
+                        {{ basket.0.total_cost|floatformat:0 }}$
+                        {{ basket.0.total_quantity }}
+
+
+                    {% endif %}
+
                 </a>
             </li>
-        
+        {% endif%}
+        <a href="{% url 'basket:view' %}" class="login_logout nickname">
+            <img src="{% static 'img/shop.png' %}" alt="">
+        </a>
+        {% if user.is_authenticated %}
+
             <li>
                 <a href="{% url 'auth:edit' %}" class="login_logout nickname">
                     {{ user.username|default:'Пользователь' }}
