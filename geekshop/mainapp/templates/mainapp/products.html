@@ -38,7 +38,7 @@
                         <div class="img-gallery-game">
 
                             <a href="{% url 'products:product' game.pk %}">
-                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                                <img src="/media/{{ game.image|default:'products_images/default.jpg' }}" alt="" class="img_game_gallery">
                             </a>
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
                             <a href="{% url 'basket:add' game.pk %}" class="buy-button">
@@ -57,11 +57,13 @@
         </div>
 
         <div class="list-block">
+            {{hot_image}}
 
             {% for hot in hot_image%}
+            {% if hot%}
                 <div class="block">
                     <a href="{% url 'products:product' hot.0.name_gallery.pk %}">
-                    <img src="/media/{{ hot.0.hot_image }}" alt="" class="hot_product">
+                    <img src="/media/{{ hot.0.hot_image|default:'products_images/default.jpg' }}" alt="/products_images/default.jpg" class="hot_product">
                     </a>
                     <div class="content-block">
                         <p class="discont">discount</p>
@@ -74,9 +76,8 @@
                             </a>
                     </div>
                 </div>
+            {% endif %}
             {% endfor %}
-
-
         </div>
     </div>
 {% endblock %}

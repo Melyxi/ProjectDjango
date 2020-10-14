@@ -1,0 +1,32 @@
+
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="margin-left: 400px;">
+<div class="form-horizontal">
+     <div class="product_record">
+        <img
+          src="/media/{{product.image|default:'products_images/default.jpg'}}"
+          alt="{{ object.name }}">
+        <div class="product_name">
+          {{product.name|title }}
+            Категория: {{product.category}}
+        </div>
+     </div>
+    <div>
+        Краткое описание: {{ product.short_desc}}
+    </div>
+    <div>
+        Описание: {{product.descriotion}}
+    </div>
+        <div>
+       Цена: {{product.price}} $
+    </div>
+    <div>
+        Количество: {{product.quantity}}
+    </div>
+
+</div>
+</div>
+{% endblock %}

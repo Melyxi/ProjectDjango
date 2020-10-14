@@ -52,10 +52,11 @@ def products(request, pk=None):
     print(pk)
     basket = basket_item(request)
     list_categories = ProductCategory.objects.all()
-    print(list_categories[0])
+    print(list_categories)
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
-
+    print(hot_image)
+    print('-----')
 
     if pk is not None:
         if pk == 0:

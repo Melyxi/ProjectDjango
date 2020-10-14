@@ -1,7 +1,11 @@
 {% extends 'authapp/base.html' %}
 {% load static %}
 
-
+{% block title_title%}
+<div class="h2 text-center head">
+    Вход в систему
+</div>
+{% endblock %}
 {% block content %}
     <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
         {% csrf_token %}
