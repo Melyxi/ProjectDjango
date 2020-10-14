@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, reverse
 from authapp.models import ShopUser
 from django.shortcuts import get_object_or_404, render
-from mainapp.models import Product, ProductCategory
+from mainapp.models import Product, ProductCategory, Gallery
 from django.contrib.auth.decorators import user_passes_test
 from authapp.forms import ShopUserRegisterForm
 from .forms import ShopUserAdminEditForm, ProductCategoryEditForm, GalleryEditForm, ProductEditForm
@@ -162,27 +162,43 @@ def products(request, pk):
 @user_passes_test(lambda u: u.is_superuser)
 def product_create(request, pk):
     title = 'товар/создание'
+    category_list = ProductCategory.objects.all()
 
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES)
         product_form['category'].value()
 
+
         print(product_form['category'].value(), "value")
         print(pk, 'pk')
-        # gallery_form = GalleryEditForm(request.POST, request.FILES)
+        gallery_form = GalleryEditForm(request.POST, request.FILES)
+
         if product_form.is_valid():
-            print(product_form['category'].value(), "++++++")
-            print(product_form['name'], "++++++")
+            post_name = request.POST['name']
+            # prod = Product.objects.filter(name=post_name).first()
+
             product_form.save()
             # gallery_form.save()
-            return HttpResponseRedirect(reverse('admin:products', args=[pk]))
+            #return HttpResponseRedirect(reverse('admin:products', args=[pk]))
+            # product_form = ProductEditForm(request.POST, request.FILES)
+
+        if gallery_form.is_valid():
+            gallery_form.save()
+            print(pk)
+
+            return HttpResponseRedirect(reverse('admin:products', args=[int(pk)]))
     else:
         product_form = ProductEditForm()
-        # gallery_form = GalleryEditForm()
+        gallery_form = GalleryEditForm()
 
-    content = {'title': title, 'update_form': product_form}
 
-    return render(request, 'adminapp/product_update.html', content)
+    content_pk = pk
+    # gallery_new = Gallery.objects.filter(name_gallery__pk=prod.pk)
+    # print(gallery_new)
+    print(pk)
+    content = {'title': title, 'update_form': product_form, 'category': category_list , 'content_pk': content_pk, 'gallery_form': gallery_form, }
+
+    return render(request, 'adminapp/product_create.html', content)
 
 
 @user_passes_test(lambda u: u.is_superuser)

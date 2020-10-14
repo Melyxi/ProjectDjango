@@ -1,0 +1,60 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block title_title%}
+<div class="h2 text-center head">
+    Создание
+</div>
+{% endblock %}
+
+
+{% block content %}
+  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="3y1mbvHjqMV9TssF6MLox8lDDec5p0DSKuaCiUYLb0vPrG1dx9JGA3bOCsZSRORy">
+      <p><label for="id_category">Category:</label>
+
+          <select name="category" class="form-control" required="" id="id_category">
+
+                    {% for item in category%}
+                        <option value="{{item.pk}}" {% if item.pk == content_pk %} selected="" {% endif %} >{{item.name}}</option>
+                    {% endfor %}
+
+        </select></p>
+        <p><label for="id_name">Имя продукта:</label> <input type="text" name="name" maxlength="200" class="form-control" required="" id="id_name"></p>
+        <p><label for="id_image">Image:</label> <input type="file" name="image" accept="image/*" class="form-control" id="id_image"></p>
+        <p><label for="id_short_desc">Краткое описание продукта:</label> <input type="text" name="short_desc" maxlength="120" class="form-control" id="id_short_desc"></p>
+        <p><label for="id_descriotion">Описание продукта:</label> <textarea name="descriotion" cols="40" rows="10" class="form-control" id="id_descriotion"></textarea></p>
+        <p><label for="id_price">Цена:</label> <input type="number" name="price" value="0" step="0.01" class="form-control" required="" id="id_price"></p>
+        <p><label for="id_quantity">Количество на складе:</label> <input type="number" name="quantity" value="0" min="0" class="form-control" required="" id="id_quantity"></p>
+        <p><label for="id_is_active">Активна:</label> <input type="checkbox" name="is_active" class="form-control" id="id_is_active" checked=""></p>
+
+
+
+
+    <input class="form-control" type="submit" value="сохранить">
+
+  </form>
+
+
+{{gallery_form.as_p}}
+
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <ul class="errorlist"><li>This field is required.</li></ul>
+<p><label for="id_name_gallery">Name gallery:</label>
+    <input type="text" name="name" maxlength="200" class="form-control" required="" id="id_name_gallery" value="{{gallery_new}}">
+</p>
+<p><label for="id_hot_image">Hot image:</label> <input type="file" name="hot_image" accept="image/*" class="form-control" id="id_hot_image"></p>
+<p><label for="id_image_product">Image product:</label> <input type="file" name="image_product" accept="image/*" class="form-control" id="id_image_product"></p>
+<input class="form-control" type="submit" value="сохранить">
+</form>
+
+  <button class="btn btn-round form-control last">
+    <a href="{% url 'admin:categories' %}">
+      к списку категорий
+    </a>
+  </button>
+{% endblock %}
