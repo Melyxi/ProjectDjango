@@ -1,7 +1,7 @@
 
 {% extends "mainapp/base.html" %}
 {% load static %}
-
+{% load my_tags %}
 
 {% block title %}
     <title>{{title|capfirst}}</title>
@@ -27,15 +27,44 @@
                 {% include 'mainapp/includes/inc_menu_gallery.html'%}
         </div>
         <div class="gallery gallery-catalog">
-            <h2 class="gallery-h2 gallery-catalog-h2">{{pk_category}}</h2>
+            <h2 class="gallery-h2 gallery-catalog-h2">{{pk_category.name}}{{u}}</h2>
+                    <div class="paginator">
+                          {% if products.has_previous %}
+
+                                    <a href="{% url 'products:page' pk_category.pk products.previous_page_number%}">
+                                  <
+                                </a>
+                              {% endif %}
+                              <span class="current">
+                                страница {{ products.number }} из
+                                {{ products.paginator.num_pages }}
+                              </span>
+                              {% if products.has_next %}
+                                <a href="{% url 'products:page' pk_category.pk products.next_page_number%}">
+                                  >
+                                </a>
+                          {% endif %}
+                     </div>
+
+                      <form action="" method="get">
+                     <input type="submit" value="10" id="page" name="count_product">
+                    <input type="submit" value="20" id="page1" name="count_product">
+                    <input type="submit" value="30" id="page2" name="count_product">
+                    <input type="submit" value="40" id="page3" name="count_product">
+
+
+
+                      </form>
+
+
 
             <div class="gallery-list gallery-list-catalog">
-                {% for game in games%}
+                {% for game in products%}
                     <div class="gallery-game">
                         <div class="img-gallery-game">
 
                             <a href="{% url 'products:product' game.pk %}">
-                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                                <img src="{{game.image|media_folder_products}}" alt="" class="img_game_gallery">
                             </a>
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
                             <a href="{% url 'basket:add' game.pk %}" class="buy-button">

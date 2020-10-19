@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
 import random
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def basket_item(request):
 
@@ -14,13 +14,13 @@ def basket_item(request):
 
 
 def get_hot_product():
-    products = Product.objects.all()
+    products = Product.objects.filter(is_active=True)
 
     return random.sample(list(products), 2)[:2]
 
 
 def get_same_products(hot_product):
-    same_products = Product.objects.filter(category=hot_product.category). \
+    same_products = Product.objects.filter(category=hot_product.category).filter(is_active=True). \
                         exclude(pk=hot_product.pk)[:3]
 
     return same_products
@@ -47,32 +47,45 @@ def main(request):
     return render(request, 'mainapp/index.html', content)
 
 
-def products(request, pk=None):
+def products(request, pk=None, page=1):
+    count_product = 5
     title = 'галерея'
-    print(pk)
     basket = basket_item(request)
     list_categories = ProductCategory.objects.all()
-    print(list_categories)
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
-    print(hot_image)
-    print('-----')
+
+    try:
+        count_product = int(request.GET['count_product'])
+    except KeyError:
+        pass
+
 
     if pk is not None:
         if pk == 0:
-            list_game = Product.objects.all().order_by('price')
-            category = 'все'
+            list_game = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
+            category = {'name':'все', 'pk': 0}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
             print("+++")
-            list_game = Product.objects.filter(category__pk=pk)
+            list_game = Product.objects.filter(category__pk=pk).filter(is_active=True, category__is_active=True).order_by('price')
+
+        paginator = Paginator(list_game, count_product)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
 
         content = {
-            'games': list_game,
-            'categories': list_categories,
-            "title": title,
-            'pk_category': category,
-            'basket': basket,
+                'games': list_game,
+                'categories': list_categories,
+                "title": title,
+                'pk_category': category,
+                'basket': basket,
+                'products': products_paginator,
+
         }
         return render(request, 'mainapp/products_list.html', content)
 
