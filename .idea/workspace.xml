@@ -2,6 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9ade096-9a80-482b-ad11-8166720aa566" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/geekshop/authapp/migrations/0004_auto_20201021_1445.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/authapp/migrations/0005_auto_20201021_1635.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/authapp/templates/authapp/verification.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/mainapp/context_processors.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/static/js/product_script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/tmp/email-messages/20201022-162200-22577432.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/tmp/email-messages/20201022-162509-28032760.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/tmp/email-messages/20201022-164026-31411552.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/geekshop/tmp/email-messages/20201022-164148-86945432.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/geekshop/adminapp/templates/adminapp/includes/inc_menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/geekshop/adminapp/templates/adminapp/includes/inc_menu.html" afterDir="false" />
