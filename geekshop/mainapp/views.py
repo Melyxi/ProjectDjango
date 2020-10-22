@@ -4,14 +4,6 @@ from basketapp.models import Basket
 import random
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-def basket_item(request):
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        return basket
-    else:
-        return []
-
 
 def get_hot_product():
     products = Product.objects.filter(is_active=True)
@@ -35,14 +27,14 @@ def hot_gallery(hot_game):
 
 
 def main(request):
-    basket = basket_item(request)
+
 
     title = 'главная'
     list_game = Product.objects.all()[:4]
     content = {
         'games': list_game,
         "title": title,
-        'basket': basket,
+
     }
     return render(request, 'mainapp/index.html', content)
 
@@ -50,7 +42,7 @@ def main(request):
 def products(request, pk=None, page=1):
     count_product = 5
     title = 'галерея'
-    basket = basket_item(request)
+
     list_categories = ProductCategory.objects.all()
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
@@ -83,7 +75,6 @@ def products(request, pk=None, page=1):
                 'categories': list_categories,
                 "title": title,
                 'pk_category': category,
-                'basket': basket,
                 'products': products_paginator,
 
         }
@@ -95,7 +86,6 @@ def products(request, pk=None, page=1):
         'games': same_game,
         'categories': list_categories,
         "title": title,
-        'basket': basket,
         'hot_image': hot_image,
 
     }
@@ -114,7 +104,6 @@ def product(request, pk):
         'title': title,
         'links_menu': ProductCategory.objects.all(),
         'product': get_object_or_404(Product, pk=pk),
-        'basket': basket_item(request),
         'img_gallery': img_gallery,
         'same_product': same_product
     }

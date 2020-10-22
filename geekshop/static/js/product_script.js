@@ -6,7 +6,7 @@ window.onload = function () {
         console.log(event);
         event.preventDefault();
     });
-    
+
     // можем получить DOM-объект меню через jQuery
     $('.menu').on('click', 'a', function () {
         console.log('event', event);
@@ -14,7 +14,7 @@ window.onload = function () {
         console.log('event.target', event.target);
         event.preventDefault();
     });
-   
+
     // получаем атрибут href
     $('.menu').on('click', 'a', function () {
         var target_href = event.target.href;
@@ -43,5 +43,18 @@ window.onload = function () {
         }
         event.preventDefault();
     });
+
+//    var t = []
+//    var urlVar = window.location.search; // получаем параметры из урла
+//    console.log(t, 'dfsfs');
+//    console.log(urlVar);
+//    var arUrl = window.location.pathname;
+//    console.log(arUrl, '+++');
+//
+//   var newUrl =  window.location.search;
+//    var newUrl =  window.location.search;
+//    history.pushState('', '', newUrl);
+
+
 
 };

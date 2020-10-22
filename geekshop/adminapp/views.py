@@ -10,12 +10,12 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from authapp.forms import ShopUserEditForm
-
+from django.views.generic.detail import DetailView
 
 class UsersListView(ListView):
     model=ShopUser
     template_name = 'adminapp/users.html'
-    paginate_by = 2
+    paginate_by = 4
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):
@@ -166,6 +166,7 @@ class UsersDeleteView(DeleteView):
 class CategoryListView(ListView):
     model=ProductCategory
     template_name = 'adminapp/categories.html'
+    paginate_by = 4
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):
@@ -310,77 +311,142 @@ class CategoryDeleteView(DeleteView):
 #     return render(request, 'adminapp/category_delete.html', content)
 
 
-@user_passes_test(lambda u: u.is_superuser)
-def products(request, pk):
-    title = 'админка/продукт'
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'adminapp/products.html'
+    paginate_by = 6
 
-    category = get_object_or_404(ProductCategory, pk=pk)
-    products_list = Product.objects.filter(category__pk=pk).order_by('name')
+    def get_queryset(self):
+        category = self.kwargs.get('pk', '')
+        q = super().get_queryset()
+        return q.filter(category__pk=category).order_by('-is_active').select_related('category')
 
-    content = {
-        'title': title,
-        'category': category,
-        'objects': products_list,
-    }
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
-    return render(request, 'adminapp/products.html', content)
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def product_create(request, pk):
-    title = 'товар/создание'
-    category_list = ProductCategory.objects.all()
-
-    if request.method == 'POST':
-        product_form = ProductEditForm(request.POST, request.FILES)
-        product_form['category'].value()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = self.kwargs.get('pk', '')
+        context['title'] = 'админка/продукты'
+        name_category = ProductCategory.objects.filter(pk=category).first()
+        context['category'] = category
+        context['name_category'] = name_category
+        return context
 
 
-        print(product_form['category'].value(), "value")
-        print(pk, 'pk')
-        gallery_form = GalleryEditForm(request.POST, request.FILES)
 
-        if product_form.is_valid():
-            post_name = request.POST['name']
-            # prod = Product.objects.filter(name=post_name).first()
-
-            product_form.save()
-            # gallery_form.save()
-            #return HttpResponseRedirect(reverse('admin:products', args=[pk]))
-            # product_form = ProductEditForm(request.POST, request.FILES)
-
-        # if gallery_form.is_valid():
-        #     gallery_form.save()
-        #     print(pk)
-
-            return HttpResponseRedirect(reverse('admin:products', args=[int(pk)]))
-    else:
-        product_form = ProductEditForm()
-        gallery_form = GalleryEditForm()
+#
+# @user_passes_test(lambda u: u.is_superuser)
+# def products(request, pk):
+#     title = 'админка/продукт'
+#
+#     category = get_object_or_404(ProductCategory, pk=pk)
+#     products_list = Product.objects.filter(category__pk=pk).order_by('name')
+#
+#     content = {
+#         'title': title,
+#         'category': category,
+#         'objects': products_list,
+#     }
+#
+#     return render(request, 'adminapp/products.html', content)
 
 
-    content_pk = pk
-    # gallery_new = Gallery.objects.filter(name_gallery__pk=prod.pk)
-    # print(gallery_new)
-    print(pk)
-    content = {'title': title, 'update_form': product_form, 'category': category_list , 'content_pk': content_pk, 'gallery_form': gallery_form, }
+class ProductCreateView(CreateView):
 
-    return render(request, 'adminapp/product_create.html', content)
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def product_read(request, pk):
-    title = 'админка/продукт описание'
-
-    product = get_object_or_404(Product, pk=pk)
+    model = Product
+    template_name = 'adminapp/product_create.html'
+    form_class = ProductEditForm
+    success_url = reverse_lazy('admin:categories')
 
 
-    content = {
-        'title': title,
-        'product': product,
-    }
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
-    return render(request, 'adminapp/product.html', content)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'товар/создание'
+        category = ProductCategory.objects.all()
+        context['category'] = category
+        return context
+
+
+
+# @user_passes_test(lambda u: u.is_superuser)
+# def product_create(request, pk):
+#     title = 'товар/создание'
+#     category_list = ProductCategory.objects.all()
+#
+#     if request.method == 'POST':
+#         product_form = ProductEditForm(request.POST, request.FILES)
+#         product_form['category'].value()
+#
+#
+#         print(product_form['category'].value(), "value")
+#         print(pk, 'pk')
+#         gallery_form = GalleryEditForm(request.POST, request.FILES)
+#
+#         if product_form.is_valid():
+#             post_name = request.POST['name']
+#             # prod = Product.objects.filter(name=post_name).first()
+#
+#             product_form.save()
+#             # gallery_form.save()
+#             #return HttpResponseRedirect(reverse('admin:products', args=[pk]))
+#             # product_form = ProductEditForm(request.POST, request.FILES)
+#
+#         # if gallery_form.is_valid():
+#         #     gallery_form.save()
+#         #     print(pk)
+#
+#             return HttpResponseRedirect(reverse('admin:products', args=[int(pk)]))
+#     else:
+#         product_form = ProductEditForm()
+#         gallery_form = GalleryEditForm()
+#
+#
+#     content_pk = pk
+#     # gallery_new = Gallery.objects.filter(name_gallery__pk=prod.pk)
+#     # print(gallery_new)
+#     print(pk)
+#     content = {'title': title, 'update_form': product_form, 'category': category_list , 'content_pk': content_pk, 'gallery_form': gallery_form, }
+#
+#     return render(request, 'adminapp/product_create.html', content)
+#
+
+class ProductListView(DetailView):
+    model = Product
+    template_name = 'adminapp/product.html'
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'админка/продукт описание'
+        return context
+
+
+
+#
+# @user_passes_test(lambda u: u.is_superuser)
+# def product_read(request, pk):
+#     title = 'админка/продукт описание'
+#
+#     product = get_object_or_404(Product, pk=pk)
+#
+#
+#     content = {
+#         'title': title,
+#         'product': product,
+#     }
+#
+#     return render(request, 'adminapp/product.html', content)
+
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_update(request, pk):

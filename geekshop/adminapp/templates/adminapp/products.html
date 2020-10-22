@@ -3,14 +3,31 @@
 {% load static %}
 
 {% block content %}
+
   <div class="products_list">
     <button class="new_product">
-      <a href="{% url 'admin:product_create' category.pk %}">
+      <a href="{% url 'admin:product_create' category %}">
         новый продукт
       </a>
     </button>
-		
-    {% for object in objects %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; 1</a>
+                <a href="?page={{ page_obj.previous_page_number }}"><</a>
+            {% endif %}
+
+            <span class="current">
+                стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">></a>
+                <a href="?page={{ page_obj.paginator.num_pages }}"> &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% for object in object_list%}
       <div class="product_record {% if not object.is_active %}not_active{% endif %}">
         <img 
           src="/media/{{object.image|default:'products_images/default.jpg'}}"

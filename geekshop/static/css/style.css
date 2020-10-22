@@ -470,6 +470,10 @@ table {
 .gallery-list {
     display: inline-block;
     padding-bottom: 30px;
+ 
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .gallery-game {
@@ -482,6 +486,7 @@ table {
     height: 479px;
     width: 271px;
     background-color: #f7f7f7;
+    margin-top: 40px;
 }
 
 .gallery-h2-game {
@@ -1330,6 +1335,16 @@ text-decoration: none;
     margin-top: 60px;
     margin-left: 60px;
 }
+
+.register {
+    text-align: center;
+    margin-top: 150px;
+    border: black;
+    border: 1px;
+    border: solid;
+    width: 500px;
+}
+
 
 .hot_product {
     position: absolute;
