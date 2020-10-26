@@ -33,7 +33,6 @@
                     . Gameplay in Rogue is very similar to that of Black Flag with a mixture
                     of ship-based naval exploration and third-person land-based exploration
                     with some new features.</h2>
-
                 <a href="{% url 'basket:add' product.pk %}" >
                     <button type="button" class="product-buy">
                                 <p class="buy-buy buy-dis-p">Buy</p>
@@ -45,15 +44,9 @@
         </div>
         {% if same_product %}
         <div class="similar-games">
-           
-
-
             <h class="similar-txt">
-
             </h>
-
-                        <div class="gallery-list gallery-list-catalog">
-
+            <div class="gallery-list gallery-list-catalog">
             {% for game in same_product%}
                     <div class="gallery-game">
                         <div class="img-gallery-game">
