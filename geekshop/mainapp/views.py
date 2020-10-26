@@ -1,26 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
 import random
-
-
-def basket_item(request):
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        return basket
-    else:
-        return []
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def get_hot_product():
-    products = Product.objects.all()
+    products = Product.objects.filter(is_active=True)
 
     return random.sample(list(products), 2)[:2]
 
 
 def get_same_products(hot_product):
-    same_products = Product.objects.filter(category=hot_product.category). \
+    same_products = Product.objects.filter(category=hot_product.category).filter(is_active=True). \
                         exclude(pk=hot_product.pk)[:3]
 
     return same_products
@@ -35,44 +27,64 @@ def hot_gallery(hot_game):
 
 
 def main(request):
-    basket = basket_item(request)
+
 
     title = 'главная'
     list_game = Product.objects.all()[:4]
     content = {
         'games': list_game,
         "title": title,
-        'basket': basket,
+
     }
     return render(request, 'mainapp/index.html', content)
 
 
-def products(request, pk=None):
+def products(request, pk=None, page=1):
+
+    if not request.session.get("count", False): # сделал количество товара на странице с помощью сессии
+                                                # как правильно удалить из сессии?
+        count_product = 5
+    else:
+        count_product = request.session["count"]
+    try:
+        count_product = int(request.GET['count_product'])
+        request.session["count"] = count_product
+    except KeyError:
+        pass
+
+    print(request.session.items(), "session")
     title = 'галерея'
-    print(pk)
-    basket = basket_item(request)
     list_categories = ProductCategory.objects.all()
-    print(list_categories)
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
-    print(hot_image)
-    print('-----')
+
+
+
 
     if pk is not None:
         if pk == 0:
-            list_game = Product.objects.all().order_by('price')
-            category = 'все'
+            list_game = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
+            category = {'name':'все', 'pk': 0}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
             print("+++")
-            list_game = Product.objects.filter(category__pk=pk)
+            list_game = Product.objects.filter(category__pk=pk).filter(is_active=True, category__is_active=True).order_by('price')
+
+        paginator = Paginator(list_game, count_product)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
 
         content = {
-            'games': list_game,
-            'categories': list_categories,
-            "title": title,
-            'pk_category': category,
-            'basket': basket,
+                'games': list_game,
+                'categories': list_categories,
+                "title": title,
+                'pk_category': category,
+                'products': products_paginator,
+
         }
         return render(request, 'mainapp/products_list.html', content)
 
@@ -82,7 +94,6 @@ def products(request, pk=None):
         'games': same_game,
         'categories': list_categories,
         "title": title,
-        'basket': basket,
         'hot_image': hot_image,
 
     }
@@ -101,7 +112,6 @@ def product(request, pk):
         'title': title,
         'links_menu': ProductCategory.objects.all(),
         'product': get_object_or_404(Product, pk=pk),
-        'basket': basket_item(request),
         'img_gallery': img_gallery,
         'same_product': same_product
     }

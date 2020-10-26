@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0J/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/?=
+ =?utf-8?b?0LjRgdC4IG1lbHl4aQ==?=
+From: django@geekshop.local
+To: igorkuz8@yandex.ru
+Date: Thu, 22 Oct 2020 13:22:00 -0000
+Message-ID: <160337292091.20364.10776189323888345160@DESKTOP-H8A33MB>
+
+Для подтверждения учетной записи melyxi на портале http://localhost:8000 перейдите по ссылке: 
+ http://localhost:8000/auth/verify/igorkuz8@yandex.ru/0fd257367aaca473dc7e17287d1a6c24a08159b7/
+-------------------------------------------------------------------------------
