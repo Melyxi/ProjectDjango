@@ -45,10 +45,10 @@ class ProductEditForm(forms.ModelForm):
 class GalleryEditForm(forms.ModelForm):
     class Meta:
         model = Gallery
-        fields = '__all__'
+        fields = ('hot_image', 'image_product')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(GalleryEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''

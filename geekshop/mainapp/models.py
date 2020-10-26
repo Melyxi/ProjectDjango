@@ -1,6 +1,9 @@
 from django.db import models
 
 # Create your models here.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=60, verbose_name="имя", unique=True)
@@ -25,6 +28,15 @@ class Product(models.Model):
 
 
 class Gallery(models.Model):
-    name_gallery = models.ForeignKey(Product, on_delete=models.CASCADE)
-    hot_image =  models.ImageField(upload_to="hot_images", blank=True)
+    name_gallery = models.OneToOneField(Product, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+    hot_image = models.ImageField(upload_to="hot_images", blank=True)
     image_product = models.ImageField(upload_to="image_product", blank=True)
+
+    @receiver(post_save, sender=Product)
+    def create_gallery(sender, instance, created, **kwargs):
+        if created:
+            Gallery.objects.create(name_gallery=instance)
+
+    @receiver(post_save, sender=Product)
+    def save_gallery(sender, instance, **kwargs):
+        instance.gallery.save()

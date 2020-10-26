@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
 import random
@@ -40,17 +40,25 @@ def main(request):
 
 
 def products(request, pk=None, page=1):
-    count_product = 5
-    title = 'галерея'
 
+    if not request.session.get("count", False): # сделал количество товара на странице с помощью сессии
+                                                # как правильно удалить из сессии?
+        count_product = 5
+    else:
+        count_product = request.session["count"]
+    try:
+        count_product = int(request.GET['count_product'])
+        request.session["count"] = count_product
+    except KeyError:
+        pass
+
+    print(request.session.items(), "session")
+    title = 'галерея'
     list_categories = ProductCategory.objects.all()
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
 
-    try:
-        count_product = int(request.GET['count_product'])
-    except KeyError:
-        pass
+
 
 
     if pk is not None:
