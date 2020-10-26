@@ -1,16 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
 import random
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-def basket_item(request):
-
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        return basket
-    else:
-        return []
 
 
 def get_hot_product():
@@ -35,30 +27,38 @@ def hot_gallery(hot_game):
 
 
 def main(request):
-    basket = basket_item(request)
+
 
     title = 'главная'
     list_game = Product.objects.all()[:4]
     content = {
         'games': list_game,
         "title": title,
-        'basket': basket,
+
     }
     return render(request, 'mainapp/index.html', content)
 
 
 def products(request, pk=None, page=1):
-    count_product = 5
+
+    if not request.session.get("count", False): # сделал количество товара на странице с помощью сессии
+                                                # как правильно удалить из сессии?
+        count_product = 5
+    else:
+        count_product = request.session["count"]
+    try:
+        count_product = int(request.GET['count_product'])
+        request.session["count"] = count_product
+    except KeyError:
+        pass
+
+    print(request.session.items(), "session")
     title = 'галерея'
-    basket = basket_item(request)
     list_categories = ProductCategory.objects.all()
     hot_game = get_hot_product()
     hot_image = hot_gallery(hot_game)
 
-    try:
-        count_product = int(request.GET['count_product'])
-    except KeyError:
-        pass
+
 
 
     if pk is not None:
@@ -83,7 +83,6 @@ def products(request, pk=None, page=1):
                 'categories': list_categories,
                 "title": title,
                 'pk_category': category,
-                'basket': basket,
                 'products': products_paginator,
 
         }
@@ -95,7 +94,6 @@ def products(request, pk=None, page=1):
         'games': same_game,
         'categories': list_categories,
         "title": title,
-        'basket': basket,
         'hot_image': hot_image,
 
     }
@@ -114,7 +112,6 @@ def product(request, pk):
         'title': title,
         'links_menu': ProductCategory.objects.all(),
         'product': get_object_or_404(Product, pk=pk),
-        'basket': basket_item(request),
         'img_gallery': img_gallery,
         'same_product': same_product
     }
