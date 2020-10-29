@@ -45,6 +45,7 @@ class ProductEditForm(forms.ModelForm):
 class GalleryEditForm(forms.ModelForm):
     class Meta:
         model = Gallery
+        #fields = '__all__'
         fields = ('hot_image', 'image_product')
 
     def __init__(self, *args, **kwargs):

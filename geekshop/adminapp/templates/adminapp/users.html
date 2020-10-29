@@ -29,7 +29,7 @@
     </div>
     {% for object in object_list %}
       <div 
-       class="user_record {% if not object.is_active %}not_active{% endif %}">
+       class="user_record {% if not object.is_active %}not_active{% endif %}" style="height: 225px;">
         <img 
           src="{{ object.avatar|media_folder_users }}"
           alt="{{ object.username }}">
@@ -47,6 +47,11 @@
           <button>
             <a href="{% url 'admin:user_delete' object.pk %}">
               удалить
+            </a>
+          </button>
+          <button>
+            <a href="{% url 'admin:admin_orders' object.pk %}">
+              Заказы
             </a>
           </button>
         </div>

@@ -35,8 +35,10 @@ class Gallery(models.Model):
     @receiver(post_save, sender=Product)
     def create_gallery(sender, instance, created, **kwargs):
         if created:
+            print('create')
             Gallery.objects.create(name_gallery=instance)
 
     @receiver(post_save, sender=Product)
     def save_gallery(sender, instance, **kwargs):
+        print('save')
         instance.gallery.save()

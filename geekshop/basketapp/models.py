@@ -11,6 +11,10 @@ class Basket(models.Model):
     def __str__(self):
         return f"{self.user} ({self.product})-{self.quantity} кол-во"
 
+    @staticmethod
+    def get_items(user):
+        return Basket.objects.filter(user=user).order_by('product__category')
+
     @property
     def product_cost(self):
         "return cost of all products this type"

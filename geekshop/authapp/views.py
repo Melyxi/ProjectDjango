@@ -65,7 +65,7 @@ def edit(request):
 
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
         profile_form = ShopUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
-
+        print(request.user.shopuserprofile)
         if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))

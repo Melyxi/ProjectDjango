@@ -145,7 +145,7 @@ body {
 .telefon {
     width: 130px;
     margin-top: 9px;
-    margin-left: 158px;
+    margin-left: 320px;
 }
 
 .email-list {
@@ -1440,6 +1440,8 @@ text-decoration: none;
         width: 1480px;
     }
     .telefon {
+
+
         display: none;
     }
     .email-list {

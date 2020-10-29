@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0J/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/?=
+ =?utf-8?b?0LjRgdC4IGlnb3IxMjM=?=
+From: django@geekshop.local
+To: 9999@tt.com
+Date: Wed, 28 Oct 2020 21:56:07 -0000
+Message-ID: <160392216761.17516.13527857242078782432@DESKTOP-H8A33MB>
+
+Для подтверждения учетной записи igor123 на портале http://localhost:8000 перейдите по ссылке: 
+ http://localhost:8000/auth/verify/9999@tt.com/dc98511220a08aaca63d3ed446229c847fdbd8af/
+-------------------------------------------------------------------------------

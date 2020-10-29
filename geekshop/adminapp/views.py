@@ -12,6 +12,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from authapp.forms import ShopUserEditForm, AdminUserEditForm
 from django.views.generic.detail import DetailView
+from ordersapp.models import Order
+
 
 class UsersListView(ListView):
     model=ShopUser
@@ -379,11 +381,13 @@ class ProductsListView(ListView):
 def product_create(request, pk):
     title = 'товар/создание'
     category_list = ProductCategory.objects.all()
-    print(request.items())
+    print(request.FILES)
 
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES)
-        product_gallery = GalleryEditForm(request.POST, instance=request.name_gallery)
+        print(product_form)
+        print(Gallery.name_gallery)
+        product_gallery = GalleryEditForm(request.POST, request.FILES)
 
         if product_form.is_valid() and product_gallery.is_valid():
             product_form.save()
@@ -458,7 +462,6 @@ class ProductListView(DetailView):
 #     return render(request, 'adminapp/product.html', content)
 
 
-
 @user_passes_test(lambda u: u.is_superuser)
 def product_update(request, pk):
     title = 'продукт/редактирование'
@@ -494,3 +497,47 @@ def product_delete(request, pk):
     content = {'title': title, 'product_to_delete': product}
 
     return render(request, 'adminapp/product_delete.html', content)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def orders_list(request, pk=None):
+    print(pk)
+    if pk == 0:
+        orders = Order.objects.order_by('-is_active')
+
+    else:
+        orders = Order.objects.filter(user=pk).order_by('-is_active')
+
+    content ={
+        'object_list': orders
+    }
+    return render(request, 'adminapp/orders.html', content)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def order_status(request, pk):
+    print(pk)
+    orders = Order.objects.filter(id=pk).first()
+    print(orders.user.pk)
+    st = Order.ORDER_STATUS_CHOICES
+    t = 0
+    while t < len(st):
+        if st[t][0] == orders.status:
+            if t+1 == len(st):
+                t = -1
+            orders.status = st[t+1][0]
+            orders.save()
+            break
+        t = t + 1
+    print(pk)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    #return HttpResponseRedirect(reverse('admin:admin_orders', args=[orders.user.pk]))
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def order_recover(request, pk):
+    orders = Order.objects.filter(id=pk).first()
+    orders.is_active = True
+    orders.save()
+
+    return HttpResponseRedirect(reverse('admin:admin_orders', args=[0]))
