@@ -492,6 +492,7 @@ html, body {
     display: block;
     height: 170px;
     float: none;
+    height: 250px;
 }
 
 .basket_container .head {

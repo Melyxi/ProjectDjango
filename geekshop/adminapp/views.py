@@ -377,20 +377,30 @@ class ProductsListView(ListView):
 #         return context
 
 @user_passes_test(lambda u: u.is_superuser)
-@transaction.atomic
+
 def product_create(request, pk):
     title = 'товар/создание'
     category_list = ProductCategory.objects.all()
-    print(request.FILES)
+
 
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES)
-        print(product_form)
+
         print(Gallery.name_gallery)
         product_gallery = GalleryEditForm(request.POST, request.FILES)
 
         if product_form.is_valid() and product_gallery.is_valid():
-            product_form.save()
+
+            t = product_form.save()
+
+            if 'hot_image' in  request.FILES:
+                t.gallery.hot_image = request.FILES['hot_image']
+                t.gallery.save()
+
+            if 'image_product' in request.FILES:
+                t.gallery.image_product = request.FILES['image_product']
+                t.gallery.save()
+
             return HttpResponseRedirect(reverse('admin:products', args=[pk]))
     else:
         product_form = ProductEditForm()
