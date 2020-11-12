@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0J/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/?=
+ =?utf-8?b?0LjRgdC4IGlnb3I2Nzg2OA==?=
+From: django@geekshop.local
+To: fgfdgdf@fsdf.ru
+Date: Thu, 05 Nov 2020 23:18:04 -0000
+Message-ID: <160461828418.19028.2822441620046385017@DESKTOP-H8A33MB>
+
+Для подтверждения учетной записи igor67868 на портале http://localhost:8000 перейдите по ссылке: 
+ http://localhost:8000/auth/verify/fgfdgdf@fsdf.ru/80fb6df7085ff56c01567da2d45b10f2018ab48b/
+-------------------------------------------------------------------------------

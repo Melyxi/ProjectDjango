@@ -581,6 +581,7 @@ html, body {
     margin: 15px auto;
 }
 
+
 .login .form-control[type="submit"] {
     margin: 10px auto;
 }
@@ -605,6 +606,10 @@ html, body {
 
 .login form {
     margin-bottom: 10px;
+}
+
+div.user_avatar {
+        text-align: center;
 }
 
 .login div.user_avatar {

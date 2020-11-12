@@ -10,7 +10,7 @@ from django.http import JsonResponse
 def auth_user_basket(request):
     user = request.user
     if user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
+        basket = Basket.objects.filter(user=request.user).select_related('product')
         return basket
     else:
         return []
@@ -31,7 +31,7 @@ def basket_add(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
     print(Product.objects.filter(pk=pk))
-    basket = Basket.objects.filter(user=request.user, product=product).first()
+    basket = Basket.objects.filter(user=request.user, product=product).select_related('product').first()
 
     if not basket:
         basket = Basket(user=request.user, product=product)
@@ -61,7 +61,7 @@ def basket_edit(request, pk, quantity):
             new_basket_item.delete()
 
         basket_items = Basket.objects.filter(user=request.user). \
-            order_by('product__category')
+            order_by('product__category').select_related('product')
 
         content = {
             'basket': basket_items,

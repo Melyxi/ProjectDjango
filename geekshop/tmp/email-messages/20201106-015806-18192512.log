@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0J/QvtC00YLQstC10YDQttC00LXQvdC40LUg0YPRh9C10YLQvdC+0Lkg0LfQsNC/?=
+ =?utf-8?b?0LjRgdC4IHRyeXRyeXI=?=
+From: django@geekshop.local
+To: dfsdf@dfdfsf.com
+Date: Thu, 05 Nov 2020 22:58:06 -0000
+Message-ID: <160461708673.19028.3777793350850622514@DESKTOP-H8A33MB>
+
+Для подтверждения учетной записи trytryr на портале http://localhost:8000 перейдите по ссылке: 
+ http://localhost:8000/auth/verify/dfsdf@dfdfsf.com/3db587eb48484cd39e719f7f4f2caaa113d6ac85/
+-------------------------------------------------------------------------------

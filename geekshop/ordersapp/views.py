@@ -1,15 +1,17 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db import transaction
-
+from django.http import JsonResponse
 from django.forms import inlineformset_factory
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-
+from django.http import JsonResponse
+from mainapp.models import Product
 from basketapp.models import Basket
 from ordersapp.models import Order, OrderItem
-from ordersapp.forms import OrderItemForm
+from ordersapp.forms import OrderItemForm, AjaxFormMixin
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, pre_delete
 
@@ -24,6 +26,9 @@ class OrderItemsCreate(CreateView):
     model = Order
     fields = []
     success_url = reverse_lazy('ordersapp:orders_list')
+
+    def get_queryset(self):
+        return super(OrderItemsCreate, self).get_queryset().select_related('product')
 
     def get_context_data(self, **kwargs):
         data = super(OrderItemsCreate, self).get_context_data(**kwargs)
@@ -68,17 +73,43 @@ class OrderItemsCreate(CreateView):
 
 class OrderItemsUpdate(UpdateView):
     model = Order
-
     fields = []
     success_url = reverse_lazy('ordersapp:orders_list')
 
+    def get_queryset(self):
+        return super(OrderItemsUpdate, self).get_queryset()
+
+
+
     def get_context_data(self, **kwargs):
         data = super(OrderItemsUpdate, self).get_context_data(**kwargs)
+        print(data)
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+        print(self.request.POST)
+
+        # if self.request.is_ajax():
+        #     if self.request.POST:
+        #         print('post')
+        #         data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
+        #
+        #
+        #
+        #
+        #     else:
+        #         print('nopost')
+        #         formset = OrderFormSet(instance=self.object)
+        #         for form in formset.forms:
+        #             if form.instance.pk:
+        #                 form.initial['price'] = form.instance.product.price
+        #             data['orderitems'] = formset
+        #
+
 
         if self.request.POST:
+
             print('post')
             data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
+            # print(data['orderitems'])
         else:
             print('nopost')
             formset = OrderFormSet(instance=self.object)
@@ -104,6 +135,43 @@ class OrderItemsUpdate(UpdateView):
         print(form)
 
         return super(OrderItemsUpdate, self).form_valid(form)
+
+
+
+def order_ajax(request, pk):
+
+    print('order_ajax')
+    OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
+
+    obj = Order.objects.filter(pk=pk).first()
+    print(obj)
+    if request.is_ajax():
+        # if OrderFormSet.is_valid():
+        #     OrderFormSet.save()
+
+        print(OrderFormSet(instance=obj))
+        print('ajax done')
+        print(request.POST)
+
+
+        if request.POST:
+            data = OrderFormSet(request.POST, instance=obj)
+            data.save()
+            print(data)
+        else:
+            data = OrderFormSet()
+
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def get_product_price(request, pk):
+   if request.is_ajax():
+       product = Product.objects.filter(pk=int(pk)).first()
+       if product:
+           return JsonResponse({'price': product.price})
+       else:
+           return JsonResponse({'price': 0})
 
 
 

@@ -6,7 +6,7 @@ from authapp.forms import ShopUserRegisterForm, ShopUserEditForm, ShopUserProfil
 from django.core.mail import send_mail
 from django.conf import settings
 from authapp.models import ShopUser
-
+from django.contrib import messages
 
 def login(request):
     title = 'вход'
@@ -42,6 +42,7 @@ def register(request):
     if request.method == 'POST':
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
         if register_form.is_valid():
+            messages.success(request, 'Проверте почту, и перейдите по ссылке')
             user = register_form.save()
             if send_verify_mail(user):
                 print('сообщение подтверждения отправлено')

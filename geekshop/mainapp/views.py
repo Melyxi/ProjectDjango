@@ -3,7 +3,7 @@ from .models import Product, ProductCategory, Gallery
 from basketapp.models import Basket
 import random
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.http import JsonResponse
 
 def get_hot_product():
     products = Product.objects.filter(is_active=True)
@@ -12,8 +12,7 @@ def get_hot_product():
 
 
 def get_same_products(hot_product):
-    same_products = Product.objects.filter(category=hot_product.category).filter(is_active=True). \
-                        exclude(pk=hot_product.pk)[:3]
+    same_products = Product.objects.filter(category=hot_product.category).filter(is_active=True).exclude(pk=hot_product.pk).select_related('category')[:3]
 
     return same_products
 
@@ -21,7 +20,7 @@ def hot_gallery(hot_game):
     hot_gallery = []
     for i in hot_game:
         print(i.name)
-        image = Gallery.objects.filter(name_gallery=i.pk)
+        image = Gallery.objects.filter(name_gallery=i.pk).select_related('name_gallery')
         print(hot_gallery.append(list(image)))
     return hot_gallery
 
@@ -63,12 +62,12 @@ def products(request, pk=None, page=1):
 
     if pk is not None:
         if pk == 0:
-            list_game = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
+            list_game = Product.objects.filter(is_active=True, category__is_active=True).order_by('price').select_related('category')
             category = {'name':'все', 'pk': 0}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
             print("+++")
-            list_game = Product.objects.filter(category__pk=pk).filter(is_active=True, category__is_active=True).order_by('price')
+            list_game = Product.objects.filter(category__pk=pk).filter(is_active=True, category__is_active=True).order_by('price').select_related('category')
 
         paginator = Paginator(list_game, count_product)
         try:
@@ -106,7 +105,7 @@ def product(request, pk):
     same_product = get_same_products(prod)
     print(same_product)
     title = 'продукты'
-    img_gallery = Gallery.objects.filter(name_gallery=pk)
+    img_gallery = Gallery.objects.filter(name_gallery=pk).select_related('name_gallery')
     # print(img_gallery[0].name_gallery, 'fdsfdsafa')
     content = {
         'title': title,

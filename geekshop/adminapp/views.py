@@ -97,6 +97,9 @@ class UsersUpdateView(UpdateView):
     #fields = '__all__'
     form_class = AdminUserEditForm
 
+    def get_queryset(self):
+
+        return super().get_queryset().select_related('shopuserprofile')
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):

@@ -33,6 +33,9 @@ window.onload = function () {
             $.ajax({
                 url: "/basket/edit/" + target_href.name + "/" + target_href.value + "/",
 
+
+
+
                 success: function (data) {
                     $('.basket_list').html(data.result);
                     console.log(result)
