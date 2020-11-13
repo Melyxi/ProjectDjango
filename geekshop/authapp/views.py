@@ -42,7 +42,7 @@ def register(request):
     if request.method == 'POST':
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
         if register_form.is_valid():
-            messages.success(request, 'Проверте почту, и перейдите по ссылке')
+            messages.success(request, 'Проверьте почту, и перейдите по ссылке')
             user = register_form.save()
             if send_verify_mail(user):
                 print('сообщение подтверждения отправлено')

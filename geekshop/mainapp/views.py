@@ -54,9 +54,9 @@ def products(request, pk=None, page=1):
     print(request.session.items(), "session")
     title = 'галерея'
     list_categories = ProductCategory.objects.all()
-    hot_game = get_hot_product()
-    hot_image = hot_gallery(hot_game)
-
+    # hot_game = get_hot_product()
+    # hot_image = hot_gallery(hot_game)
+    #hot_image=[1,2]
 
 
 
@@ -93,7 +93,7 @@ def products(request, pk=None, page=1):
         'games': same_game,
         'categories': list_categories,
         "title": title,
-        'hot_image': hot_image,
+        #'hot_image': hot_image,
 
     }
 

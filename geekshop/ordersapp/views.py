@@ -4,7 +4,6 @@ from django.urls import reverse, reverse_lazy
 from django.db import transaction
 from django.http import JsonResponse
 from django.forms import inlineformset_factory
-
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.http import JsonResponse
@@ -14,12 +13,19 @@ from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm, AjaxFormMixin
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, pre_delete
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 class OrderList(ListView):
     model = Order
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
+
+    @method_decorator(login_required())
+    def dispatch(self, *args, **kwargs):
+        return super(ListView, self).dispatch(*args, **kwargs)
 
 
 class OrderItemsCreate(CreateView):
@@ -40,8 +46,10 @@ class OrderItemsCreate(CreateView):
             basket_items = Basket.get_items(self.request.user)
 
             if len(basket_items):
+
                 OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=len(basket_items))
                 formset = OrderFormSet()
+
                 for num, form in enumerate(formset.forms):
                    form.initial['product'] = basket_items[num].product
                    form.initial['quantity'] = basket_items[num].quantity
@@ -111,8 +119,8 @@ class OrderItemsUpdate(UpdateView):
             data['orderitems'] = OrderFormSet(self.request.POST, instance=self.object)
             # print(data['orderitems'])
         else:
-            print('nopost')
-            formset = OrderFormSet(instance=self.object)
+            queryset = self.object.orderitems.select_related()
+            formset = OrderFormSet(instance=self.object, queryset=queryset)
             for form in formset.forms:
                 if form.instance.pk:
                     form.initial['price'] = form.instance.product.price
