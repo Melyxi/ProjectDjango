@@ -53,9 +53,9 @@ INSTALLED_APPS = [
     'adminapp',
     'social_django',
     'ordersapp',
-    'debug_toolbar',
-    'template_profiler_panel',
-    'django_extensions',
+    # 'debug_toolbar',
+    # 'template_profiler_panel',
+    # 'django_extensions',
 ]
 
 GRAPH_MODELS = {
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 
 ]
 

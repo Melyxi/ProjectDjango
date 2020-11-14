@@ -159,7 +159,7 @@ def products(request, pk=None, page=1):
         }
         return render(request, 'mainapp/products_list.html', content)
 
-    same_game = Product.objects.all()[1:4]
+    same_game = get_products()[1:4]
 
     content = {
         'games': same_game,
