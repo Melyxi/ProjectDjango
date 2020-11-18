@@ -91,7 +91,7 @@ class OrderItemsUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         data = super(OrderItemsUpdate, self).get_context_data(**kwargs)
-        print(data)
+        print(self.request.path)
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
         print(self.request.POST)
 
@@ -209,12 +209,16 @@ def order_forming_complete(request, pk):
 @receiver(pre_save, sender=OrderItem)
 @receiver(pre_save, sender=Basket)
 def product_quantity_update_save(sender, update_fields, instance, **kwargs):
-    if update_fields is ('quantity' or 'product'):
-        if instance.pk:
-            instance.product.quantity -= instance.quantity - sender.get_item(instance.pk).quantity
-        else:
-            instance.product.quantity -= instance.quantity
-        instance.product.save()
+    print("сигнал на вычитание количества")
+    print(update_fields)
+
+    if instance.pk:
+        print('instance.pk')
+        instance.product.quantity -= (instance.quantity - sender.get_item(instance.pk).quantity)
+    else:
+        print('not instance.pk')
+        instance.product.quantity -= instance.quantity
+    instance.product.save()
 
 @receiver(pre_delete, sender=OrderItem)
 @receiver(pre_delete, sender=Basket)

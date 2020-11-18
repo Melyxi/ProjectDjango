@@ -20,9 +20,7 @@
             <div class="content">
                 <p class="one">Nunc eget nibh
                     <br><img src="{% static 'img/bord.png' %}" alt=""> </p>
-                <!--          <div class="wrong">
-  
-          </div>-->
+
                 <p class="two">Morbi in nisl auctor</p>
             </div>
             <div class="mailing">
@@ -108,12 +106,16 @@
             <h2 class="gallery-h2">Our Gallery</h2>
             <div class="gallery-list">
                 {% for game in games%}
-                    <div class="gallery-game">
-                        <div class="img-gallery-game"><img src="/media/{{ game.image }}" alt="">
+                     <div class="gallery-game">
+                        <div class="img-gallery-game">
+
+                            <a href="{% url 'products:product' game.pk %}">
+                                <img src="/media/{{ game.image }}" alt="" class="img_game_gallery">
+                            </a>
                             <h2 class="gallery-h2-game">{{game.name}}</h2>
-                            <button type="button" class="buy-button">
+                            <a href="{% url 'basket:add' game.pk %}" class="buy-button">
                                 <p class="buy-buy">Buy</p>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 {% endfor %}

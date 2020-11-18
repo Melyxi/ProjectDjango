@@ -479,19 +479,33 @@ class ProductListView(DetailView):
 def product_update(request, pk):
     title = 'продукт/редактирование'
     edit_product =  get_object_or_404(Product, pk=pk)
-
+    edit_gallery = get_object_or_404(Gallery, name_gallery=pk)
 
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES, instance=edit_product)
-        if product_form.is_valid():
-            product_form.save()
+        product_gallery = GalleryEditForm(request.POST, request.FILES, instance=edit_gallery)
+
+        if product_form.is_valid() and product_gallery.is_valid():
+            t = product_form.save()
+
+            if 'hot_image' in  request.FILES:
+                t.gallery.hot_image = request.FILES['hot_image']
+                t.gallery.save()
+
+            if 'image_product' in request.FILES:
+                t.gallery.image_product = request.FILES['image_product']
+                t.gallery.save()
             return HttpResponseRedirect(reverse('admin:products', args=[int(edit_product.category.pk)]))
     else:
         product_form = ProductEditForm(instance=edit_product)
-
-    content = {'title': title, 'update_form': product_form}
+        product_gallery = GalleryEditForm(instance=edit_gallery)
+    content = {'title': title, 'update_form': product_form, 'update_form_gallery': product_gallery}
 
     return render(request, 'adminapp/product_update.html', content)
+
+
+
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_delete(request, pk):

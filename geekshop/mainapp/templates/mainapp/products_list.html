@@ -22,32 +22,34 @@
         </div>
         <div class="gallery gallery-catalog">
             <h2 class="gallery-h2 gallery-catalog-h2">{{pk_category.name}}{{u}}</h2>
-                    <div class="paginator">
+
+
+
+                    <div class="Page navigation example">
+                        <ul class="pagination justify-content-center">
                           {% if products.has_previous %}
 
-                                    <a href="{% url 'products:page' pk_category.pk products.previous_page_number%}">
-                                  <
-                                </a>
+                                   <li class="page-item" style="font-size: 15px;"> <a class="page-link"  href="{% url 'products:page' pk_category.pk products.previous_page_number%}">
+                                 <span aria-hidden="true">&laquo;</span>
+                                </a></li>
                               {% endif %}
-                              <span class="current">
+                              <span class="current page-item page-link" style="font-size: 15px;">
                                 страница {{ products.number }} из
                                 {{ products.paginator.num_pages }}
                               </span>
                               {% if products.has_next %}
-                                <a href="{% url 'products:page' pk_category.pk products.next_page_number%}">
-                                  >
-                                </a>
+                               <li class="page-item" style="font-size: 15px;"> <a class="page-link"  href="{% url 'products:page' pk_category.pk products.next_page_number%}">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a></li>
                           {% endif %}
+                            </ul>
                      </div>
 
                       <form action="" method="get">
-                     <input type="submit" value="10" id="page" name="count_product">
-                    <input type="submit" value="20" id="page1" name="count_product">
-                    <input type="submit" value="30" id="page2" name="count_product">
-                    <input type="submit" value="40" id="page3" name="count_product">
-
-
-
+                     <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="10" id="page" name="count_product">
+                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="20" id="page1" name="count_product">
+                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="30" id="page2" name="count_product">
+                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="40" id="page3" name="count_product">
                       </form>
 
 

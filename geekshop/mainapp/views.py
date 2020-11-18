@@ -112,13 +112,22 @@ def main(request):
 @cache_page(1600)
 def products(request, pk=None, page=1):
 
-    if not request.session.get("count", False): # сделал количество товара на странице с помощью сессии
+    print(request.path)
+    if request.path != f'/products/category/{pk}/':
+        pass
+
+    if request.session.get("count", False): # сделал количество товара на странице с помощью сессии
         # как правильно удалить из сессии?
-        count_product = 5
-    else:
         count_product = request.session["count"]
+    else:
+        count_product = 5
     try:
         count_product = int(request.GET['count_product'])
+        if request.session.get("path", False):
+
+            request.session["path"] = request.path
+
+
         request.session["count"] = count_product
     except KeyError:
         pass
