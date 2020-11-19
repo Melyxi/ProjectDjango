@@ -1371,6 +1371,14 @@ text-decoration: none;
 
 }
 
+.no_prod{
+    color: red;
+    display:none;
+}
+
+.close_product{
+    display:none;
+}
 
 .product-game {
     color: black;

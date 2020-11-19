@@ -14,7 +14,8 @@ urlpatterns = [
    path('update/<pk>/', ordersapp.OrderItemsUpdate.as_view(), name='order_update'),
    path('delete/<pk>/', ordersapp.OrderDelete.as_view(), name='order_delete'),
    path('add/form/<pk>/', ordersapp.order_ajax, name='order_add'),
-   path('product/<pk>/price/', ordersapp.get_product_price)
+   path('product/<pk>/price/', ordersapp.get_product_price),
+   path('max/quantity/<pk>/', ordersapp.get_product_quantity)
 
 ]
 

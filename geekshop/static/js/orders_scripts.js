@@ -101,8 +101,16 @@ function getCookie(name) {
 
 $(document).on('change', '.order_form select', function () {
    var target = event.target;
+   console.log(target.parentElement.querySelector('.error'))
+
    orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
+   target.parentElement.querySelector('.error').setAttribute('id', orderitem_num)
    var orderitem_product_pk = target.options[target.selectedIndex].value;
+
+
+
+
+
 
    if (orderitem_product_pk) {
        $.ajax({
@@ -128,6 +136,181 @@ $(document).on('change', '.order_form select', function () {
        });
    }
 });
+
+
+
+
+
+
+$(document).on('change', '.order_form select', function () {
+   var target = event.target;
+
+
+   orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
+   var orderitem_product_pk = target.options[target.selectedIndex].value;
+
+   if (orderitem_product_pk) {
+       $.ajax({
+           url: "/order/max/quantity/" + orderitem_product_pk + "/",
+           success: function (data) {
+               if (data.quantity) {
+
+                    let elem = document.getElementById('id_orderitems-'+orderitem_num+'-quantity');
+
+                    elem.setAttribute('max', data.quantity)
+//
+//                    console.log(elem.attributes)
+//                    console.log(target)
+//                    console.log(data.quantity)
+
+               }
+           },
+       });
+   }
+});
+
+
+
+
+
+
+$(document).on('click', '.order_form select', function () {
+   list_num = repetition()
+    var target = event.target;
+   for (let i =0; i< list_num.length; i++){
+//            console.log(`dfsdfds '${list_num[i]}'`)
+//            console.log(target.childNodes, 'jihuygygy')
+
+           target.querySelector(`[value='${list_num[i]}']`).classList.add("close_product");
+
+
+
+//           target.querySelector(`[value='${list_num[i]}']`)).setAttribute('style', 'display:none');
+
+   }
+
+
+})
+
+
+
+
+
+
+
+
+
+$(document).on('change', '.order_form select', function () {
+   var target = event.target;
+   orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
+   var orderitem_product_pk = target.options[target.selectedIndex].value;
+
+    console.log('change')
+
+
+//    select.removeChild(select.querySelector('[id="2"]'));
+    let elem = document.getElementById('id_orderitems-'+orderitem_num+'-quantity');
+    let error = document.getElementById(orderitem_num);
+    console.log(error)
+   if (orderitem_product_pk) {
+       $.ajax({
+           url: "/order/max/quantity/" + orderitem_product_pk + "/",
+           success: function (data) {
+               if (data.quantity) {
+//                    console.log(data, 'data')
+
+
+                    elem.setAttribute('max', data.quantity)
+                    if (!error.classList.contains('no_prod')){
+                        console.log('++')
+                          error.classList.add('no_prod')
+
+
+                    }
+
+
+//                    console.log(elem.attributes)
+//                    console.log(target)
+//                    console.log(data.quantity, 'количество')
+
+               }
+               else{
+
+                     elem.setAttribute('max', data.quantity)
+//
+//                     console.log(error)
+//                     console.log('---')
+                    error.classList.remove('no_prod')
+               }
+           },
+       });
+   }
+});
+
+function repetition(){
+
+
+        let list_product = document.querySelectorAll('select')
+//        console.log(list_product)
+        list_value = []
+        list_product.forEach(function (product){
+
+            product.childNodes.forEach(function (el){
+//                console.log(el, 'fdsfsdf')
+//               console.log(el.selected)
+                if (el.selected == true){
+                    if (el.value){
+                         let prod = el.value
+                        list_value.push(prod)
+
+                    }
+
+//                   console.log(el.value)
+                }
+                else{
+
+                    if (el.selected == false){
+                        if (el.classList.contains("close_product")){
+                            el.classList.remove("close_product")}
+                    }
+
+
+
+
+                }
+            })
+
+})
+//console.log(list_value)
+return list_value
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (!order_total_quantity) {
    orderSummaryRecalc();
