@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db.models import F
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, reverse
 from authapp.models import ShopUser
 from django.shortcuts import get_object_or_404, render
@@ -13,6 +14,9 @@ from django.urls import reverse_lazy
 from authapp.forms import ShopUserEditForm, AdminUserEditForm
 from django.views.generic.detail import DetailView
 from ordersapp.models import Order
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 
 class UsersListView(ListView):
@@ -252,7 +256,14 @@ class CategoryUpdateView(UpdateView):
         context['title'] = 'категории/редактирование'
         return context
 
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
 
+        return super().form_valid(form)
 
 #
 # @user_passes_test(lambda u: u.is_superuser)
@@ -478,20 +489,34 @@ class ProductListView(DetailView):
 @user_passes_test(lambda u: u.is_superuser)
 def product_update(request, pk):
     title = 'продукт/редактирование'
-    edit_product =  get_object_or_404(Product, pk=pk)
-
+    edit_product = get_object_or_404(Product, pk=pk)
+    edit_gallery = get_object_or_404(Gallery, name_gallery=pk)
 
     if request.method == 'POST':
         product_form = ProductEditForm(request.POST, request.FILES, instance=edit_product)
-        if product_form.is_valid():
-            product_form.save()
+        product_gallery = GalleryEditForm(request.POST, request.FILES, instance=edit_gallery)
+
+        if product_form.is_valid() and product_gallery.is_valid():
+            t = product_form.save()
+
+            if 'hot_image' in request.FILES:
+                t.gallery.hot_image = request.FILES['hot_image']
+                t.gallery.save()
+
+            if 'image_product' in request.FILES:
+                t.gallery.image_product = request.FILES['image_product']
+                t.gallery.save()
             return HttpResponseRedirect(reverse('admin:products', args=[int(edit_product.category.pk)]))
     else:
         product_form = ProductEditForm(instance=edit_product)
-
-    content = {'title': title, 'update_form': product_form}
+        product_gallery = GalleryEditForm(instance=edit_gallery)
+    content = {'title': title, 'update_form': product_form, 'update_form_gallery': product_gallery}
 
     return render(request, 'adminapp/product_update.html', content)
+
+
+
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_delete(request, pk):
@@ -547,6 +572,9 @@ def order_status(request, pk):
     #return HttpResponseRedirect(reverse('admin:admin_orders', args=[orders.user.pk]))
 
 
+
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def order_recover(request, pk):
     orders = Order.objects.filter(id=pk).first()
@@ -554,3 +582,22 @@ def order_recover(request, pk):
     orders.save()
 
     return HttpResponseRedirect(reverse('admin:admin_orders', args=[0]))
+
+
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
+
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
+
+

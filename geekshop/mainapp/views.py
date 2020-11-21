@@ -111,19 +111,8 @@ def main(request):
 
 @cache_page(1600)
 def products(request, pk=None, page=1):
+    count_product = 5
 
-    if not request.session.get("count", False): # сделал количество товара на странице с помощью сессии
-        # как правильно удалить из сессии?
-        count_product = 5
-    else:
-        count_product = request.session["count"]
-    try:
-        count_product = int(request.GET['count_product'])
-        request.session["count"] = count_product
-    except KeyError:
-        pass
-
-    print(request.session.items(), "session")
     title = 'галерея'
     list_categories = ProductCategory.objects.all()
     # hot_game = get_hot_product()
@@ -159,7 +148,7 @@ def products(request, pk=None, page=1):
         }
         return render(request, 'mainapp/products_list.html', content)
 
-    same_game = Product.objects.all()[1:4]
+    same_game = get_products()[1:4]
 
     content = {
         'games': same_game,

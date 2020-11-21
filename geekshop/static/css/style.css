@@ -1210,7 +1210,7 @@ table {
 }
 
 .gallery-list-catalog {
-    margin-top: 103px;
+
 }
 
 .new-game {
@@ -1356,22 +1356,29 @@ text-decoration: none;
     padding-top: 175px;
     text-align: center;
     display: block;
-    height: 100%;
-    width: 100%;
-    padding-bottom: 175px;
+    margin: 0 auto;
+    width: 1000px;
+    height: 700px;
 
 }
 .img-product{
     display: inline-block;
 }
 .text-product {
-
-    display: inline-block;
+    float: right;
     width: 463px;
-    height: 257px;
+
 
 }
 
+.no_prod{
+    color: red;
+    display:none;
+}
+
+.close_product{
+    display:none;
+}
 
 .product-game {
     color: black;
