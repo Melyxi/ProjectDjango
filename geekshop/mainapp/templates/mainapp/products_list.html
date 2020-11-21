@@ -9,6 +9,11 @@
 
 
 {% block content %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+                {{ message }}
+        </div>
+    {% endfor %}
     <div class="container-catalog">
         <div class="header catalog-header">
             {% include 'mainapp/includes/inc_header_list.html' %}
@@ -44,14 +49,6 @@
                           {% endif %}
                             </ul>
                      </div>
-
-                      <form action="" method="get">
-                     <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="10" id="page" name="count_product">
-                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="20" id="page1" name="count_product">
-                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="30" id="page2" name="count_product">
-                    <input class="current page-item page-link" style="font-size: 15px; display: inline" type="submit" value="40" id="page3" name="count_product">
-                      </form>
-
 
 
             <div class="gallery-list gallery-list-catalog">

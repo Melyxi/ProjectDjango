@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db.models import F
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, reverse
 from authapp.models import ShopUser
 from django.shortcuts import get_object_or_404, render
@@ -255,7 +256,14 @@ class CategoryUpdateView(UpdateView):
         context['title'] = 'категории/редактирование'
         return context
 
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
 
+        return super().form_valid(form)
 
 #
 # @user_passes_test(lambda u: u.is_superuser)
@@ -481,7 +489,7 @@ class ProductListView(DetailView):
 @user_passes_test(lambda u: u.is_superuser)
 def product_update(request, pk):
     title = 'продукт/редактирование'
-    edit_product =  get_object_or_404(Product, pk=pk)
+    edit_product = get_object_or_404(Product, pk=pk)
     edit_gallery = get_object_or_404(Gallery, name_gallery=pk)
 
     if request.method == 'POST':
@@ -491,7 +499,7 @@ def product_update(request, pk):
         if product_form.is_valid() and product_gallery.is_valid():
             t = product_form.save()
 
-            if 'hot_image' in  request.FILES:
+            if 'hot_image' in request.FILES:
                 t.gallery.hot_image = request.FILES['hot_image']
                 t.gallery.save()
 
@@ -564,6 +572,9 @@ def order_status(request, pk):
     #return HttpResponseRedirect(reverse('admin:admin_orders', args=[orders.user.pk]))
 
 
+
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def order_recover(request, pk):
     orders = Order.objects.filter(id=pk).first()
@@ -588,3 +599,5 @@ def product_is_active_update_productcategory_save(sender, instance, **kwargs):
             instance.product_set.update(is_active=False)
 
         db_profile_by_type(sender, 'UPDATE', connection.queries)
+
+

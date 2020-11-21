@@ -36,6 +36,10 @@ class Basket(models.Model):
     def get_items_cached(self):
         return self.user.basket.select_related()
 
+    @staticmethod
+    def get_product(user, product):
+        return Basket.objects.filter(user=user, product=product)
+
     @property
     def product_cost(self):
         "return cost of all products this type"

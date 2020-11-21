@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -217,17 +218,19 @@ def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 
     if instance.pk:
         print('instance.pk')
-
-        instance.product.quantity -= (instance.quantity - sender.get_item(instance.pk).quantity)
+        print(instance.product.quantity,instance.quantity, sender.get_item(instance.pk).quantity)
+        instance.product.quantity = F('quantity') - (instance.quantity - sender.get_item(instance.pk).quantity)
 
     else:
         print('not instance.pk')
-        instance.product.quantity -= instance.quantity
+
+        instance.product.quantity = F('quantity') - instance.quantity
     instance.product.save()
+
 
 
 @receiver(pre_delete, sender=OrderItem)
 @receiver(pre_delete, sender=Basket)
 def product_quantity_update_delete(sender, instance, **kwargs):
-    instance.product.quantity += instance.quantity
+    instance.product.quantity = F('quantity')+ instance.quantity
     instance.product.save()
