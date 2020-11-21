@@ -32,7 +32,7 @@ def basket_add(request, pk):
 
     print(Product.objects.filter(pk=pk))
     basket = Basket.objects.filter(user=request.user, product=product).select_related('product').first()
-
+    
     if not basket:
         basket = Basket(user=request.user, product=product)
 
