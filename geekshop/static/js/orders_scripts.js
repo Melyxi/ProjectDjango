@@ -193,7 +193,36 @@ $(document).on('click', '.order_form select', function () {
 })
 
 
+max_quantity = document.querySelectorAll('.order_form select')
 
+max_quantity.forEach(function (el){
+    console.log(el, 'dsdad')
+    order_i = parseInt(el.name.replace('orderitems-', '').replace('-product', ''));
+    var orderitem_product_pk = el.options[el.selectedIndex].value;
+    console.log(order_i)
+    console.log(orderitem_product_pk)
+    if (orderitem_product_pk) {
+       $.ajax({
+           url: "/order/max/quantity/" + orderitem_product_pk + "/",
+           success: function (data) {
+                console.log('ajax')
+                    console.log(order_i , 'num')
+                    console.log(data.quantity)
+                    let elem = document.getElementById('id_orderitems-'+order_i +'-quantity');
+                    console.log(elem)
+                    elem.setAttribute('max', data.quantity)
+//
+//                    console.log(elem.attributes)
+//                    console.log(target)
+//                    console.log(data.quantity)
+
+
+           },
+       });
+   }
+
+
+})
 
 
 

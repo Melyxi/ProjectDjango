@@ -34,7 +34,7 @@ class ShopUserProfile(models.Model):
     aboutMe = models.TextField(verbose_name='о себе', max_length=512, blank=True)
     gender = models.CharField(verbose_name='пол', max_length=1, choices=GENDER_CHOICES, blank=True)
     vk_link = models.CharField(verbose_name='ссылка на вк', max_length=328, blank=True)
-
+'''
     @receiver(post_save, sender=ShopUser)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -44,3 +44,4 @@ class ShopUserProfile(models.Model):
     @receiver(post_save, sender=ShopUser)
     def save_user_profile(sender, instance, **kwargs):
         instance.shopuserprofile.save()
+'''

@@ -589,7 +589,7 @@ def db_profile_by_type(prefix, type, queries):
     print(f'db_profile {type} for {prefix}:')
     [print(query['sql']) for query in update_queries]
 
-
+'''
 @receiver(pre_save, sender=ProductCategory)
 def product_is_active_update_productcategory_save(sender, instance, **kwargs):
     if instance.pk:
@@ -600,4 +600,4 @@ def product_is_active_update_productcategory_save(sender, instance, **kwargs):
 
         db_profile_by_type(sender, 'UPDATE', connection.queries)
 
-
+'''

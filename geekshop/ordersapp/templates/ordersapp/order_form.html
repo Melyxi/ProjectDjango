@@ -29,7 +29,7 @@
                                {% if forloop.first %}
                                    {% for hidden in form.hidden_fields %}
                                         {{hidden}}
-
+                                           {{hidden.label}} {{hidden.value}}
                                    {% endfor %}
                                {% endif %}
                                {{ field.errors.as_ul }}

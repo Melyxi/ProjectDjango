@@ -147,10 +147,10 @@ def get_product_quantity(request, pk):
     if request.is_ajax():
         product = Product.objects.filter(pk=int(pk)).first()
         if product:
-            print(product.quantity, 'колво')
+            print(product.quantity, 'кол-во')
             return JsonResponse({'quantity': product.quantity})
         else:
-            print(product.quantity, 'колво-ноу')
+            #print(product.quantity, 'колво-ноу')
             return JsonResponse({'quantity': 0})
 
 
@@ -209,7 +209,7 @@ def order_forming_complete(request, pk):
 
     return HttpResponseRedirect(reverse('ordersapp:orders_list'))
 
-
+'''
 @receiver(pre_save, sender=OrderItem)
 @receiver(pre_save, sender=Basket)
 def product_quantity_update_save(sender, update_fields, instance, **kwargs):
@@ -234,3 +234,4 @@ def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 def product_quantity_update_delete(sender, instance, **kwargs):
     instance.product.quantity = F('quantity')+ instance.quantity
     instance.product.save()
+'''

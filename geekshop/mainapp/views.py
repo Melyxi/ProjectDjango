@@ -109,7 +109,7 @@ def main(request):
     }
     return render(request, 'mainapp/index.html', content)
 
-@cache_page(1600)
+@cache_page(1)
 def products(request, pk=None, page=1):
     count_product = 5
 
@@ -160,7 +160,7 @@ def products(request, pk=None, page=1):
 
     return render(request, 'mainapp/products.html', content)
 
-@cache_page(1600)
+@cache_page(1)
 def product(request, pk):
     prod = get_product(pk)
     same_product = get_same_products(prod)
